@@ -300,6 +300,7 @@ def chat_endpoint(payload: ChatRequest):
             del os.environ["OPENAI_API_KEY"]
 
 
-# Vercel handler
-handler = app
+# Vercel handler with Mangum
+from mangum import Mangum
+handler = Mangum(app, lifespan="off")
 
