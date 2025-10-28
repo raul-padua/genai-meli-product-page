@@ -4,11 +4,19 @@ from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
 
-# Import from local rag module
+# Import RAG module (optional for basic functionality)
 try:
     from .rag import ingest_corpus, answer_question
+    RAG_AVAILABLE = True
 except ImportError:
-    from rag import ingest_corpus, answer_question
+    RAG_AVAILABLE = False
+    def ingest_corpus(*args, **kwargs):
+        pass
+    def answer_question(query, **kwargs):
+        return {
+            "answer": "RAG system unavailable. Please provide an OpenAI API key to use AI features.",
+            "sources": []
+        }
 
 
 class PaymentMethod(BaseModel):
@@ -208,31 +216,32 @@ class SearchResponse(BaseModel):
 @app.on_event("startup")
 def _bootstrap_vectors() -> None:
     # Build a tiny in-memory corpus from existing sections
-    docs = [
-        {"id": "title", "section": "Título", "text": SAMPLE_ITEM.title},
-        {"id": "desc", "section": "Descripción", "text": SAMPLE_ITEM.description},
-        {
-            "id": "specs",
-            "section": "Características del producto",
-            "text": "\n".join([f"{c.name}: {c.rating}★" for c in REVIEWS_DATA.characteristic_ratings]),
-        },
-        {
-            "id": "seller",
-            "section": "Vendedor",
-            "text": f"{SAMPLE_ITEM.seller.name} reputación {SAMPLE_ITEM.seller.reputation} ventas {SAMPLE_ITEM.seller.sales}",
-        },
-        {
-            "id": "payments",
-            "section": "Medios de pago",
-            "text": ", ".join([m.description for m in SAMPLE_ITEM.payment_methods]),
-        },
-        {
-            "id": "reviews",
-            "section": "Opiniones destacadas",
-            "text": "\n\n".join([r.text for r in REVIEWS_DATA.reviews]),
-        },
-    ]
-    ingest_corpus(docs)
+    if RAG_AVAILABLE:
+        docs = [
+            {"id": "title", "section": "Título", "text": SAMPLE_ITEM.title},
+            {"id": "desc", "section": "Descripción", "text": SAMPLE_ITEM.description},
+            {
+                "id": "specs",
+                "section": "Características del producto",
+                "text": "\n".join([f"{c.name}: {c.rating}★" for c in REVIEWS_DATA.characteristic_ratings]),
+            },
+            {
+                "id": "seller",
+                "section": "Vendedor",
+                "text": f"{SAMPLE_ITEM.seller.name} reputación {SAMPLE_ITEM.seller.reputation} ventas {SAMPLE_ITEM.seller.sales}",
+            },
+            {
+                "id": "payments",
+                "section": "Medios de pago",
+                "text": ", ".join([m.description for m in SAMPLE_ITEM.payment_methods]),
+            },
+            {
+                "id": "reviews",
+                "section": "Opiniones destacadas",
+                "text": "\n\n".join([r.text for r in REVIEWS_DATA.reviews]),
+            },
+        ]
+        ingest_corpus(docs)
 
 
 @app.post("/search", response_model=SearchResponse)
