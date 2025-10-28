@@ -4,19 +4,15 @@ from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
 
-# Import RAG module (optional for basic functionality)
-try:
-    from .rag import ingest_corpus, answer_question
-    RAG_AVAILABLE = True
-except ImportError:
-    RAG_AVAILABLE = False
-    def ingest_corpus(*args, **kwargs):
-        pass
-    def answer_question(query, **kwargs):
-        return {
-            "answer": "RAG system unavailable. Please provide an OpenAI API key to use AI features.",
-            "sources": []
-        }
+# RAG system disabled for serverless deployment
+RAG_AVAILABLE = False
+def ingest_corpus(*args, **kwargs):
+    pass
+def answer_question(query, **kwargs):
+    return {
+        "answer": "AI chat is not available in this deployment. The feature requires additional configuration.",
+        "sources": []
+    }
 
 
 class PaymentMethod(BaseModel):
