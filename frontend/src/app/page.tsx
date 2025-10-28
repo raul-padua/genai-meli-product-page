@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useEffect, useMemo, useState, useRef } from "react";
 import styles from "./page.module.css";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
 interface PaymentMethod {
   type: string;
   description: string;
@@ -164,7 +166,7 @@ export default function Home() {
   }, [selectedImage, item]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/item")
+    fetch(`${API_URL}/item`)
       .then((res) => res.json())
       .then((data: ItemDetail) => {
         setItem(data);
@@ -176,7 +178,7 @@ export default function Home() {
         console.error("Failed to load item detail", error);
       });
 
-    fetch("http://127.0.0.1:8000/reviews")
+    fetch(`${API_URL}/reviews`)
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -216,7 +218,7 @@ export default function Home() {
 
     setIsSearching(true);
     try {
-      const response = await fetch("http://127.0.0.1:8000/search", {
+      const response = await fetch(`${API_URL}/search`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query })
@@ -263,7 +265,7 @@ export default function Home() {
     setIsTyping(true);
     
     try {
-      const res = await fetch("http://127.0.0.1:8000/agent/chat", {
+      const res = await fetch(`${API_URL}/agent/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question, openai_key: openaiKey || undefined })

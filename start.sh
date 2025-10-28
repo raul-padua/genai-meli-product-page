@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# 🚀 MercadoLibre GenAI Evaluation Project - Quick Start Script
+# 🚀 GenAI Product Assistant - Quick Start Script
 # This script automates the setup and startup of the entire application
 
 set -e  # Exit on any error
 
-echo "🚀 Starting MercadoLibre GenAI Evaluation Project Setup..."
+echo "🚀 Starting GenAI Product Assistant Setup..."
 echo "=================================================="
 
 # Colors for output
@@ -170,7 +170,7 @@ start_frontend() {
 
 # Main execution
 main() {
-    echo "🎯 MercadoLibre GenAI Evaluation Project"
+    echo "🎯 GenAI Product Assistant"
     echo "========================================"
     echo ""
     

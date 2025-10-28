@@ -125,7 +125,7 @@ def answer_question(query: str, top_k: int = 3, language: str = "es") -> Dict[st
 
     llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
     prompt = (
-        "Eres un asistente de compras de MercadoLibre. Responde en español de forma natural y conversacional. "
+        "Eres un asistente de compras inteligente. Responde en español de forma natural y conversacional. "
         "Usa la información del contexto para responder de manera útil y precisa. "
         "NO uses corchetes, asteriscos, o caracteres especiales en tu respuesta. "
         "Responde de forma fluida como si fueras un experto en productos.\n\n"

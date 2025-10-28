@@ -1,1 +1,1 @@
-# Tests package for the MercadoLibre GenAI evaluation backend
+# Tests package for the GenAI Product Assistant backend

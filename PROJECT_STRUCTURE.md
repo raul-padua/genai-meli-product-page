@@ -1,6 +1,6 @@
 # 📁 Project Structure Overview
 
-This document provides a detailed breakdown of the GenAI evaluation project structure and file organization.
+This document provides a detailed breakdown of the GenAI Product Assistant project structure and file organization.
 
 ## 🏗️ Root Directory Structure
 
@@ -22,7 +22,7 @@ frontend/
 ├── 📄 tailwind.config.js           # Tailwind CSS configuration
 ├── 📄 tsconfig.json                # TypeScript configuration
 ├── 📁 public/                      # Static assets
-│   ├── 🖼️ logo_MELI.png            # MercadoLibre logo
+│   ├── 🖼️ logo_MELI.png            # E-commerce platform logo
 │   ├── 🖼️ hero_1.webp to hero_6.webp  # Product images
 │   ├── 🖼️ galaxy_*.webp           # Related product images
 │   ├── 🖼️ opinion_photo_*.webp     # Review photos
@@ -40,7 +40,7 @@ frontend/
 ### Frontend Key Files
 
 - **`src/app/page.tsx`**: Main React component with product display, chat widget, and search functionality
-- **`src/app/page.module.css`**: Comprehensive CSS with MercadoLibre-inspired styling
+- **`src/app/page.module.css`**: Comprehensive CSS with e-commerce styling
 - **`public/`**: Image assets for product gallery, reviews, and payment methods
 
 ## ⚙️ Backend Structure (`backend/`)
@@ -258,4 +258,4 @@ Frontend (Next.js)          Backend (FastAPI)           External APIs
 
 ---
 
-This structure provides a solid foundation for the GenAI evaluation project, with clear separation of concerns and comprehensive testing coverage.
+This structure provides a solid foundation for the GenAI Product Assistant, with clear separation of concerns and comprehensive testing coverage.

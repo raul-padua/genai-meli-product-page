@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Test runner script for the MercadoLibre GenAI evaluation backend.
+Test runner script for the GenAI Product Assistant backend.
 
 This script provides various options for running tests:
 - All tests

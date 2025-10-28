@@ -1,6 +1,6 @@
-# 🚀 How to Run the GenAI Evaluation Project
+# 🚀 How to Run the GenAI Product Assistant
 
-This guide provides step-by-step instructions to set up and run the MercadoLibre GenAI evaluation project on your local machine.
+This guide provides step-by-step instructions to set up and run the GenAI Product Assistant on your local machine.
 
 ## 📋 Prerequisites
 
@@ -21,7 +21,7 @@ Before starting, ensure you have the following installed:
 ```bash
 # Clone the repository (if not already done)
 git clone <repository-url>
-cd technical_challenge_DS_GenAI/genai-evaluation
+cd genai-evaluation
 ```
 
 ### 2. Backend Setup
@@ -78,7 +78,7 @@ Create a startup script for easier execution:
 # Create startup script (macOS/Linux)
 cat > start_app.sh << 'EOF'
 #!/bin/bash
-echo "🚀 Starting MercadoLibre GenAI Evaluation Project..."
+echo "🚀 Starting GenAI Product Assistant..."
 
 # Start backend in background
 echo "📡 Starting backend server..."
@@ -360,6 +360,6 @@ Before considering the setup complete, verify:
 
 ---
 
-**🎉 You're all set! The MercadoLibre GenAI Evaluation Project should now be running successfully.**
+**🎉 You're all set! The GenAI Product Assistant should now be running successfully.**
 
 For questions or issues, refer to the troubleshooting section above or check the comprehensive README.md for detailed project information.

@@ -1,6 +1,6 @@
 # Backend Unit Tests
 
-This directory contains comprehensive unit tests for the MercadoLibre GenAI evaluation backend.
+This directory contains comprehensive unit tests for the GenAI Product Assistant backend.
 
 ## Test Structure
 

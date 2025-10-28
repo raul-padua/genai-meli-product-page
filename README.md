@@ -1,6 +1,6 @@
-# MercadoLibre GenAI Evaluation Project
+# GenAI Product Assistant Platform
 
-A comprehensive full-stack application demonstrating advanced GenAI capabilities with a MercadoLibre-inspired item detail page, featuring RAG-powered chat assistance and intelligent search functionality.
+A comprehensive full-stack application demonstrating advanced GenAI capabilities with an e-commerce product detail page, featuring RAG-powered chat assistance and intelligent search functionality.
 
 ## 🚀 Project Overview
 
@@ -102,7 +102,7 @@ The project includes a comprehensive test suite:
 ## 🎨 UI/UX Features
 
 ### Design System
-- **MercadoLibre Brand Colors**: Yellow (#FFE600), Blue (#3483FA)
+- **Brand Colors**: Yellow (#FFE600), Blue (#3483FA)
 - **Typography**: Clean, readable fonts with proper hierarchy
 - **Spacing**: Consistent grid system and component spacing
 - **Interactive Elements**: Hover effects, transitions, and animations
@@ -143,7 +143,7 @@ The project includes a comprehensive test suite:
 - **Seller Information**: Provide details about sellers and reputation
 
 ### Search Integration
-- **Real-time Search**: Live search across MercadoLibre Argentina
+- **Real-time Search**: Live product search integration
 - **Focused Results**: Filtered results for better relevance
 - **Preview Functionality**: Show content snippets before navigation
 - **Debounced Input**: Optimized search performance
@@ -162,6 +162,31 @@ The project includes a comprehensive test suite:
 - **Maintainable Code**: Comprehensive testing and documentation
 - **Modern Stack**: Latest technologies and best practices
 
+## 🚀 Deployment
+
+### Deploy to Vercel
+
+This project is ready to be deployed to Vercel with both backend and frontend.
+
+#### Quick Deploy (Script)
+```bash
+./deploy-vercel.sh
+```
+
+#### Manual Deploy
+See the comprehensive guide: **[VERCEL_DEPLOYMENT.md](./VERCEL_DEPLOYMENT.md)**
+
+#### Requirements
+- Vercel account (free tier available)
+- Vercel CLI: `npm install -g vercel`
+- OpenAI API key (optional, for AI features)
+
+#### What's Deployed
+- **Backend**: FastAPI serverless functions
+- **Frontend**: Next.js static site with SSR
+- **Environment Variables**: Secure API key management
+- **Custom Domains**: Optional domain configuration
+
 ## 🔮 Future Enhancements
 
 ### Planned Features
@@ -175,7 +200,7 @@ The project includes a comprehensive test suite:
 - **Database Integration**: Persistent storage for embeddings
 - **Caching Layer**: Redis for improved performance
 - **Monitoring**: Application performance monitoring
-- **Deployment**: Docker containerization and CI/CD
+- **Container Orchestration**: Kubernetes deployment
 
 ## 📚 Learning Outcomes
 
@@ -190,7 +215,7 @@ This project demonstrates:
 
 ## 🤝 Contributing
 
-This is a technical evaluation project showcasing GenAI capabilities. The codebase serves as a reference implementation for:
+This project showcases GenAI capabilities in e-commerce. The codebase serves as a reference implementation for:
 
 - AI-powered e-commerce applications
 - RAG system implementation
@@ -200,7 +225,7 @@ This is a technical evaluation project showcasing GenAI capabilities. The codeba
 
 ## 📄 License
 
-This project is created for educational and evaluation purposes as part of the MercadoLibre GenAI technical challenge.
+This project is created for educational and demonstration purposes.
 
 ---
 
