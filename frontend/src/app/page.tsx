@@ -32,6 +32,43 @@ interface ItemDetail {
   heroImages: string[];
 }
 
+interface Review {
+  id: string;
+  rating: number;
+  text: string;
+  author: string;
+  date: string;
+  verified_purchase: boolean;
+}
+
+interface RatingBreakdown {
+  five_stars: number;
+  four_stars: number;
+  three_stars: number;
+  two_stars: number;
+  one_star: number;
+}
+
+interface CharacteristicRating {
+  name: string;
+  rating: number;
+}
+
+interface ReviewsData {
+  overall_rating: number;
+  total_reviews: number;
+  rating_breakdown: RatingBreakdown;
+  characteristic_ratings: CharacteristicRating[];
+  reviews: Review[];
+}
+
+interface SearchResult {
+  title: string;
+  url: string;
+  content: string;
+  score?: number;
+}
+
 const currencyFormatter = new Intl.NumberFormat("es-AR", {
   style: "currency",
   currency: "ARS",
@@ -273,7 +310,7 @@ export default function Home() {
       const data = await res.json();
       const cleanedAnswer = cleanResponseText(data.answer);
       setChatMessages((m) => [...m, { role: 'bot', text: cleanedAnswer, timestamp: new Date() }]);
-    } catch (e) {
+    } catch {
       setChatMessages((m) => [...m, { role: 'bot', text: 'Hubo un error consultando el asistente.', timestamp: new Date() }]);
     } finally {
       setIsTyping(false);
@@ -388,7 +425,7 @@ export default function Home() {
                   alt={item.title}
                   style={{maxWidth: '100%', maxHeight: '100%', objectFit: 'contain'}}
                   onLoad={() => console.log("Image loaded:", displayedImage || "/hero_1.webp")}
-                  onError={(e) => {
+                  onError={() => {
                     console.error("Image failed to load:", displayedImage || "/hero_1.webp");
                     // Fallback to hero_1 if current image fails
                     if (displayedImage !== "/hero_1.webp") {
@@ -623,7 +660,7 @@ export default function Home() {
                 </div>
                 <div className={styles.screenSizeInfo}>
                   <div className={styles.screenSizeText}>
-                    Tamaño de la pantalla: <strong>6.6"</strong>
+                    Tamaño de la pantalla: <strong>6.6&quot;</strong>
                   </div>
                   <div className={styles.screenSizeDimensions}>
                     (16.11 cm x 7.74 cm x 8.2 mm)
@@ -661,9 +698,9 @@ export default function Home() {
                 Con un procesador Exynos 1480 y 8 GB de RAM vas a tener un rendimiento excepcional para aplicaciones, juegos y
                 multitarea en Android 14 One UI 6.1.
               </p>
-              <p className={styles.highlight}>Experiencia multimedia inmersiva</p>
+                <p className={styles.highlight}>Experiencia multimedia inmersiva</p>
               <p>
-                La pantalla Super AMOLED de 6.6" ofrece colores vivos y contraste intenso con Vision Booster, ideal para ver
+                La pantalla Super AMOLED de 6.6&quot; ofrece colores vivos y contraste intenso con Vision Booster, ideal para ver
                 contenido en exteriores, mientras que Dolby Atmos brinda sonido envolvente.
               </p>
               <p className={styles.highlight}>Seguridad y autonomía</p>
@@ -692,7 +729,7 @@ export default function Home() {
 
                       <div className={styles.characteristicRatings}>
                         <h3 className={styles.characteristicTitle}>Calificación de características</h3>
-                        {reviews.characteristic_ratings.map((char: any, index: number) => (
+                        {reviews.characteristic_ratings.map((char: CharacteristicRating, index: number) => (
                           <div key={index} className={styles.characteristicItem}>
                             <span className={styles.characteristicName}>{char.name}</span>
                             <div className={styles.characteristicStars}>
@@ -725,9 +762,9 @@ export default function Home() {
                       <div className={styles.photoReviews}>
                         <h3 className={styles.photoReviewsTitle}>Opiniones con fotos</h3>
                         <div className={styles.photoThumbnails}>
-                          {[1, 2, 3, 4].map((i) => (
-                            <div key={i} className={styles.photoThumbnail}>
-                              <img src={`/opinion_photo_${i}.webp`} alt={`Review photo ${i}`} />
+                          {[1, 2, 3, 4].map((photoNum) => (
+                            <div key={photoNum} className={styles.photoThumbnail}>
+                              <img src={`/opinion_photo_${photoNum}.webp`} alt={`Review photo ${photoNum}`} />
                               <div className={styles.photoRating}>5 ★</div>
                             </div>
                           ))}
@@ -746,7 +783,7 @@ export default function Home() {
                         <h3 className={styles.highlightedTitle}>Opiniones destacadas</h3>
                         <div className={styles.commentCount}>122 comentarios</div>
                         <div className={styles.reviewsList}>
-                          {reviews.reviews.map((review: any) => (
+                          {reviews.reviews.map((review: Review) => (
                             <div key={review.id} className={styles.reviewItem}>
                               <div className={styles.reviewHeader}>
                                 <div className={styles.reviewStars}>
