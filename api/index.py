@@ -176,12 +176,12 @@ REVIEWS_DATA = ReviewsData(
 )
 
 
-@app.get("/api/item", response_model=ItemDetail)
+@app.get("/item", response_model=ItemDetail)
 def get_item_detail() -> ItemDetail:
     return SAMPLE_ITEM
 
 
-@app.get("/api/reviews", response_model=ReviewsData)
+@app.get("/reviews", response_model=ReviewsData)
 def get_reviews() -> ReviewsData:
     return REVIEWS_DATA
 
@@ -236,7 +236,7 @@ def _bootstrap_vectors() -> None:
     ingest_corpus(docs)
 
 
-@app.post("/api/search", response_model=SearchResponse)
+@app.post("/search", response_model=SearchResponse)
 async def search_endpoint(payload: SearchRequest):
     """Search MercadoLibre Argentina using Tavily API"""
     try:
@@ -277,7 +277,7 @@ async def search_endpoint(payload: SearchRequest):
         return SearchResponse(results=[])
 
 
-@app.post("/api/agent/chat")
+@app.post("/agent/chat")
 def chat_endpoint(payload: ChatRequest):
     # Temporarily set the API key if provided
     import os
