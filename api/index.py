@@ -2,14 +2,13 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
-import sys
-import os
-
-# Add backend to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'backend'))
-
-from rag import ingest_corpus, answer_question
 import httpx
+
+# Import from local rag module
+try:
+    from .rag import ingest_corpus, answer_question
+except ImportError:
+    from rag import ingest_corpus, answer_question
 
 
 class PaymentMethod(BaseModel):
