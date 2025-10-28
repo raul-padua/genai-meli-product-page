@@ -1,0 +1,12 @@
+backend/__pycache__
+backend/.pytest_cache
+backend/tests
+backend/run_tests.py
+backend/pytest.ini
+*.log
+frontend/node_modules
+frontend/.next
+SANITIZATION_SUMMARY.md
+deploy-vercel.sh
+start.sh
+

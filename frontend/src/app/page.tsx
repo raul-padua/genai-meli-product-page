@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useState, useRef } from "react";
 import styles from "./page.module.css";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL || (typeof window !== 'undefined' ? '/api' : 'http://127.0.0.1:8000');
 
 interface PaymentMethod {
   type: string;
