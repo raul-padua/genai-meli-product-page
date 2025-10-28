@@ -180,7 +180,7 @@ export default function Home() {
   const [selectedImage, setSelectedImage] = useState<string>("");
   const [alsoBoughtIndex, setAlsoBoughtIndex] = useState<number>(0);
   const [sellerProductsIndex, setSellerProductsIndex] = useState<number>(0);
-  const [reviews, setReviews] = useState<any>(null);
+  const [reviews, setReviews] = useState<ReviewsData | null>(null);
   const [chatOpen, setChatOpen] = useState<boolean>(false);
   const [chatMessages, setChatMessages] = useState<{role: 'user'|'bot', text: string, timestamp: Date}[]>([]);
   const [chatInput, setChatInput] = useState<string>("");
@@ -190,7 +190,7 @@ export default function Home() {
   
   // Search functionality
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
