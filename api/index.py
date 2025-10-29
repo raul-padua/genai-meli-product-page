@@ -4,21 +4,101 @@ from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
 
-# RAG system - use simple version without LangChain
+# RAG system - inline implementation (no imports needed)
 try:
-    from rag_simple import ingest_corpus, answer_question
-    RAG_AVAILABLE = True
-    print("✅ RAG system loaded successfully (simple version)")
-except ImportError as e:
-    print(f"❌ RAG import failed: {e}")
-    RAG_AVAILABLE = False
-    def ingest_corpus(*args, **kwargs):
-        pass
-    def answer_question(query, **kwargs):
+    from openai import OpenAI
+    OPENAI_AVAILABLE = True
+except ImportError:
+    OPENAI_AVAILABLE = False
+    OpenAI = None
+
+# Simple in-memory document store
+_DOCS: list = []
+
+def ingest_corpus(docs: list) -> None:
+    """Store documents in memory"""
+    global _DOCS
+    _DOCS = docs
+    print(f"✅ Ingested {len(docs)} documents")
+
+def answer_question(query: str, **kwargs) -> dict:
+    """Answer a question using the ingested documents and OpenAI"""
+    import os
+    
+    if not OPENAI_AVAILABLE:
         return {
-            "answer": "AI chat is not available. Import failed.",
+            "answer": "OpenAI SDK not available.",
             "sources": []
         }
+    
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        return {
+            "answer": "Por favor, proporciona tu clave de API de OpenAI para usar el chat con IA.",
+            "sources": []
+        }
+    
+    try:
+        # Simple keyword-based search
+        query_lower = query.lower()
+        relevant_docs = []
+        
+        for doc in _DOCS:
+            text_lower = doc.get("text", "").lower()
+            score = sum(1 for word in query_lower.split() if word in text_lower)
+            if score > 0:
+                relevant_docs.append((score, doc))
+        
+        # Sort by score and take top 3
+        relevant_docs.sort(reverse=True, key=lambda x: x[0])
+        top_docs = [doc for _, doc in relevant_docs[:3]]
+        
+        # Build context
+        context = "\n\n".join([
+            f"Sección: {doc['section']}\n{doc['text']}"
+            for doc in top_docs
+        ])
+        
+        # Call OpenAI
+        client = OpenAI(api_key=api_key)
+        
+        system_prompt = """Eres un asistente de compras inteligente. 
+Responde preguntas sobre el producto basándote ÚNICAMENTE en la información proporcionada.
+Si no tienes información suficiente, dilo claramente.
+Responde en español de manera concisa y útil."""
+        
+        user_prompt = f"""Contexto del producto:
+{context}
+
+Pregunta del usuario: {query}
+
+Responde basándote en el contexto proporcionado:"""
+        
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            temperature=0.7,
+            max_tokens=300
+        )
+        
+        answer = response.choices[0].message.content
+        sources = [doc['section'] for doc in top_docs]
+        
+        return {
+            "answer": answer,
+            "sources": sources
+        }
+        
+    except Exception as e:
+        return {
+            "answer": f"Error al procesar tu pregunta: {str(e)[:100]}",
+            "sources": []
+        }
+
+RAG_AVAILABLE = OPENAI_AVAILABLE
 
 
 class PaymentMethod(BaseModel):
