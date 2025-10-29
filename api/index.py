@@ -373,6 +373,35 @@ async def search_endpoint(payload: SearchRequest):
 @app.post("/py-api/agent/chat")
 @app.post("/agent/chat")  # Keep both for compatibility
 def chat_endpoint(payload: ChatRequest):
+    # Ensure documents are ingested (serverless might not preserve state)
+    if len(_DOCS) == 0:
+        docs = [
+            {"id": "title", "section": "Título", "text": SAMPLE_ITEM.title},
+            {"id": "desc", "section": "Descripción", "text": SAMPLE_ITEM.description},
+            {
+                "id": "specs",
+                "section": "Características del producto",
+                "text": "\n".join([f"{c.name}: {c.rating}★" for c in REVIEWS_DATA.characteristic_ratings]),
+            },
+            {
+                "id": "seller",
+                "section": "Vendedor",
+                "text": f"{SAMPLE_ITEM.seller.name} reputación {SAMPLE_ITEM.seller.reputation} ventas {SAMPLE_ITEM.seller.sales}",
+            },
+            {
+                "id": "payments",
+                "section": "Medios de pago",
+                "text": ", ".join([m.description for m in SAMPLE_ITEM.payment_methods]),
+            },
+            {
+                "id": "reviews",
+                "section": "Opiniones destacadas",
+                "text": "\n\n".join([r.text for r in REVIEWS_DATA.reviews]),
+            },
+        ]
+        ingest_corpus(docs)
+        print(f"✅ Documents ingested on-demand: {len(docs)} docs")
+    
     # Temporarily set the API key if provided
     import os
     original_key = os.environ.get("OPENAI_API_KEY")
