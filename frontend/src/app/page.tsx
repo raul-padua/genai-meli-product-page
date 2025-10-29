@@ -15,8 +15,6 @@ const translations = {
     searchButton: "Buscar",
     searching: "Buscando...",
     noResults: "No se encontraron resultados",
-    sendTo: "Enviar a:",
-    city: "Capital Federal",
     breadcrumb1: "Celulares y teléfonos",
     breadcrumb2: "Accesorios para celulares",
     protectedPurchase: "Compra protegida, recibí el producto que esperabas o te devolvemos tu dinero",
@@ -123,8 +121,6 @@ const translations = {
     searchButton: "Buscar",
     searching: "Buscando...",
     noResults: "Nenhum resultado encontrado",
-    sendTo: "Enviar para:",
-    city: "São Paulo",
     breadcrumb1: "Celulares e telefones",
     breadcrumb2: "Acessórios para celulares",
     protectedPurchase: "Compra protegida, receba o produto que esperava ou devolvemos seu dinheiro",
@@ -231,8 +227,6 @@ const translations = {
     searchButton: "Search",
     searching: "Searching...",
     noResults: "No results found",
-    sendTo: "Ship to:",
-    city: "Buenos Aires",
     breadcrumb1: "Cell phones and telephones",
     breadcrumb2: "Cell phone accessories",
     protectedPurchase: "Protected purchase, get the product you expected or we'll refund your money",
@@ -525,6 +519,9 @@ export default function Home() {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Location detection
+  const [userLocation, setUserLocation] = useState<string>("United States");
+
   // Get current translations
   const t = translations[language];
 
@@ -534,6 +531,22 @@ export default function Home() {
     }
     return item?.images?.[0] || "";
   }, [selectedImage, item]);
+
+  // Detect user location on mount
+  useEffect(() => {
+    // Try to get location from IP using a free service
+    fetch('https://ipapi.co/json/')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.country_name) {
+          setUserLocation(data.country_name);
+        }
+      })
+      .catch(() => {
+        // Fallback to default
+        setUserLocation("United States");
+      });
+  }, []);
 
   useEffect(() => {
     fetch(`${API_URL}/item?lang=${language}`)
@@ -702,8 +715,8 @@ export default function Home() {
             )}
           </div>
           <div className={styles.location}>
-            <span>{t.sendTo}</span>
-            <span>{t.city}</span>
+            <span>Ship to:</span>
+            <span>{userLocation}</span>
           </div>
           <div className={styles.languageSelector}>
             <button 

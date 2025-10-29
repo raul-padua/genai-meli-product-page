@@ -524,14 +524,14 @@ def _bootstrap_vectors() -> None:
 @app.post("/py-api/search", response_model=SearchResponse)
 @app.post("/search", response_model=SearchResponse)  # Keep both for compatibility
 async def search_endpoint(payload: SearchRequest):
-    """Search MercadoLibre Argentina using Tavily API"""
+    """Search Amazon using Tavily API - defaults to amazon.com"""
     try:
         async with httpx.AsyncClient() as client:
             response = await client.post(
                 "https://api.tavily.com/search",
                 json={
                     "api_key": "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",
-                    "query": f"{payload.query} -wikipedia -wikimedia mercadolibre.com.ar",
+                    "query": f"{payload.query} site:amazon.com -wikipedia -wikimedia",
                     "search_depth": "basic",
                     "include_answer": False,
                     "include_images": False,
