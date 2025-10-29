@@ -3,7 +3,6 @@ from pydantic import BaseModel
 from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
-from mangum import Mangum
 
 # RAG system disabled for serverless deployment
 RAG_AVAILABLE = False
@@ -180,12 +179,14 @@ REVIEWS_DATA = ReviewsData(
 )
 
 
-@app.get("/api/item", response_model=ItemDetail)
+@app.get("/py-api/item", response_model=ItemDetail)
+@app.get("/item", response_model=ItemDetail)  # Keep both for compatibility
 def get_item_detail() -> ItemDetail:
     return SAMPLE_ITEM
 
 
-@app.get("/api/reviews", response_model=ReviewsData)
+@app.get("/py-api/reviews", response_model=ReviewsData)
+@app.get("/reviews", response_model=ReviewsData)  # Keep both for compatibility
 def get_reviews() -> ReviewsData:
     return REVIEWS_DATA
 
@@ -216,7 +217,8 @@ class SearchResponse(BaseModel):
 #     pass
 
 
-@app.post("/api/search", response_model=SearchResponse)
+@app.post("/py-api/search", response_model=SearchResponse)
+@app.post("/search", response_model=SearchResponse)  # Keep both for compatibility
 async def search_endpoint(payload: SearchRequest):
     """Search MercadoLibre Argentina using Tavily API"""
     try:
@@ -257,7 +259,8 @@ async def search_endpoint(payload: SearchRequest):
         return SearchResponse(results=[])
 
 
-@app.post("/api/agent/chat")
+@app.post("/py-api/agent/chat")
+@app.post("/agent/chat")  # Keep both for compatibility
 def chat_endpoint(payload: ChatRequest):
     # Temporarily set the API key if provided
     import os
@@ -276,6 +279,5 @@ def chat_endpoint(payload: ChatRequest):
             del os.environ["OPENAI_API_KEY"]
 
 
-# Vercel handler with Mangum
-handler = Mangum(app, lifespan="off")
+# No special handler needed - Vercel handles FastAPI directly
 
