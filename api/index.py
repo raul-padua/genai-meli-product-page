@@ -234,35 +234,43 @@ class SearchResponse(BaseModel):
     results: List[SearchResult]
 
 
-@app.on_event("startup")
-def _bootstrap_vectors() -> None:
-    # Build a tiny in-memory corpus from existing sections
-    if RAG_AVAILABLE:
-        docs = [
-            {"id": "title", "section": "Título", "text": SAMPLE_ITEM.title},
-            {"id": "desc", "section": "Descripción", "text": SAMPLE_ITEM.description},
-            {
-                "id": "specs",
-                "section": "Características del producto",
-                "text": "\n".join([f"{c.name}: {c.rating}★" for c in REVIEWS_DATA.characteristic_ratings]),
-            },
-            {
-                "id": "seller",
-                "section": "Vendedor",
-                "text": f"{SAMPLE_ITEM.seller.name} reputación {SAMPLE_ITEM.seller.reputation} ventas {SAMPLE_ITEM.seller.sales}",
-            },
-            {
-                "id": "payments",
-                "section": "Medios de pago",
-                "text": ", ".join([m.description for m in SAMPLE_ITEM.payment_methods]),
-            },
-            {
-                "id": "reviews",
-                "section": "Opiniones destacadas",
-                "text": "\n\n".join([r.text for r in REVIEWS_DATA.reviews]),
-            },
-        ]
-        ingest_corpus(docs)
+# Global flag to track if documents have been ingested
+_DOCS_INGESTED = False
+
+def _ensure_docs_ingested() -> None:
+    """Ensure documents are ingested on first use (lazy loading for serverless)"""
+    global _DOCS_INGESTED
+    if RAG_AVAILABLE and not _DOCS_INGESTED:
+        try:
+            docs = [
+                {"id": "title", "section": "Título", "text": SAMPLE_ITEM.title},
+                {"id": "desc", "section": "Descripción", "text": SAMPLE_ITEM.description},
+                {
+                    "id": "specs",
+                    "section": "Características del producto",
+                    "text": "\n".join([f"{c.name}: {c.rating}★" for c in REVIEWS_DATA.characteristic_ratings]),
+                },
+                {
+                    "id": "seller",
+                    "section": "Vendedor",
+                    "text": f"{SAMPLE_ITEM.seller.name} reputación {SAMPLE_ITEM.seller.reputation} ventas {SAMPLE_ITEM.seller.sales}",
+                },
+                {
+                    "id": "payments",
+                    "section": "Medios de pago",
+                    "text": ", ".join([m.description for m in SAMPLE_ITEM.payment_methods]),
+                },
+                {
+                    "id": "reviews",
+                    "section": "Opiniones destacadas",
+                    "text": "\n\n".join([r.text for r in REVIEWS_DATA.reviews]),
+                },
+            ]
+            ingest_corpus(docs)
+            _DOCS_INGESTED = True
+            print("✅ Documents ingested successfully")
+        except Exception as e:
+            print(f"❌ Failed to ingest documents: {e}")
 
 
 @app.post("/py-api/search", response_model=SearchResponse)
