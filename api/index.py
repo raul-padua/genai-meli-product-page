@@ -124,6 +124,21 @@ TRANSLATIONS = {
         "context_prefix": "Contexto del producto:",
         "question_prefix": "Pregunta del usuario:",
         "answer_instruction": "Responde basándote en el contexto proporcionado:",
+        "verified_user": "Usuario verificado",
+        "days_ago": "Hace {} días",
+        "weeks_ago": "Hace {} semana" if 1 else "Hace {} semanas",
+        "review1": "Destaca por su cámara espectacular que captura fotos de alta calidad. Su rendimiento es excelente, con un procesador veloz y una batería duradera que cumple con las expectativas de los usuarios. Además, su diseño es atractivo y el teléfono es intuitivo y fácil de usar, lo que lo convierte en una opción muy recomendable.",
+        "review2": "Es hermoso la cámara un espectáculo,y dura un montón la bacteria.",
+        "review3": "Venía de un a54 y se nota mucho la diferencia con el nuevo procesador, si bien es un exynos, está versión cuenta con un gpu de tecnología amd. Se nota un mejor rendimiento y administración de energía. Además, no tiene tanto calentamiento como la versión anterior. Si bien no es un snapdragon, se notan mucho los cambios de una versión a la otra.",
+        "review4": "Yo tenia el samsung galaxy a30s, la verdad fue un cambio que se noto, y me gusta muchísimo.",
+        "review5": "Muy lindo es celular y muy buen precio me encantó 💕",
+        "review6": "Mi celu es una preciosura!!!. Lo amo 💕. Super rápido e intuitivo. Las fotos que toma tienen una calidad magnífica y los videos son la gloria👌. Compren sin dudarlo. No se van a arrepentir. Gracias a los chicos por enviarlo super rápido y en un packaging hermoso!!. Son unos genios!! 😍. Compren sin dudar!. Mi experiencia fue un 10 🤩.",
+        "date1": "Hace 2 días",
+        "date2": "Hace 5 días",
+        "date3": "Hace 1 semana",
+        "date4": "Hace 1 semana",
+        "date5": "Hace 2 semanas",
+        "date6": "Hace 2 semanas",
     },
     "pt": {
         "title": "Samsung Galaxy A55 5G Dual SIM 256 GB 8 GB RAM (Azul Claro)",
@@ -141,6 +156,21 @@ TRANSLATIONS = {
         "context_prefix": "Contexto do produto:",
         "question_prefix": "Pergunta do usuário:",
         "answer_instruction": "Responda com base no contexto fornecido:",
+        "verified_user": "Usuário verificado",
+        "days_ago": "Há {} dias",
+        "weeks_ago": "Há {} semana" if 1 else "Há {} semanas",
+        "review1": "Destaca-se pela sua câmera espetacular que captura fotos de alta qualidade. Seu desempenho é excelente, com um processador rápido e uma bateria durável que atende às expectativas dos usuários. Além disso, seu design é atraente e o telefone é intuitivo e fácil de usar, tornando-o uma opção muito recomendável.",
+        "review2": "É lindo, a câmera é um espetáculo e a bateria dura muito.",
+        "review3": "Vinha de um A54 e nota-se muito a diferença com o novo processador, embora seja um Exynos, esta versão tem uma GPU de tecnologia AMD. Nota-se melhor desempenho e gestão de energia. Além disso, não aquece tanto quanto a versão anterior. Embora não seja um Snapdragon, as mudanças de uma versão para outra são muito notáveis.",
+        "review4": "Eu tinha o Samsung Galaxy A30s, a verdade foi uma mudança notável e eu gosto muito.",
+        "review5": "Muito lindo é o celular e muito bom preço, adorei 💕",
+        "review6": "Meu celular é uma preciosidade!!!. Eu amo 💕. Super rápido e intuitivo. As fotos que tira têm qualidade magnífica e os vídeos são a glória👌. Comprem sem duvidar. Não vão se arrepender. Obrigado aos rapazes por enviá-lo super rápido e em uma embalagem linda!!. São uns gênios!! 😍. Comprem sem duvidar!. Minha experiência foi um 10 🤩.",
+        "date1": "Há 2 dias",
+        "date2": "Há 5 dias",
+        "date3": "Há 1 semana",
+        "date4": "Há 1 semana",
+        "date5": "Há 2 semanas",
+        "date6": "Há 2 semanas",
     },
     "en": {
         "title": "Samsung Galaxy A55 5G Dual SIM 256 GB 8 GB RAM (Light Blue)",
@@ -158,6 +188,21 @@ TRANSLATIONS = {
         "context_prefix": "Product context:",
         "question_prefix": "User question:",
         "answer_instruction": "Answer based on the provided context:",
+        "verified_user": "Verified user",
+        "days_ago": "{} days ago",
+        "weeks_ago": "{} week ago" if 1 else "{} weeks ago",
+        "review1": "It stands out for its spectacular camera that captures high-quality photos. Its performance is excellent, with a fast processor and long-lasting battery that meets user expectations. Additionally, its design is attractive and the phone is intuitive and easy to use, making it a highly recommended option.",
+        "review2": "It's beautiful, the camera is spectacular, and the battery lasts a long time.",
+        "review3": "I came from an A54 and the difference with the new processor is very noticeable. Although it's an Exynos, this version has an AMD technology GPU. You can notice better performance and power management. Also, it doesn't heat up as much as the previous version. While it's not a Snapdragon, the changes from one version to another are very noticeable.",
+        "review4": "I had the Samsung Galaxy A30s, it was truly a noticeable change and I love it.",
+        "review5": "Very beautiful phone and great price, I loved it 💕",
+        "review6": "My phone is gorgeous!!!. I love it 💕. Super fast and intuitive. The photos it takes have magnificent quality and the videos are glorious👌. Buy without hesitation. You won't regret it. Thanks to the guys for sending it super fast and in beautiful packaging!!. They're geniuses!! 😍. Buy without hesitation!. My experience was a 10 🤩.",
+        "date1": "2 days ago",
+        "date2": "5 days ago",
+        "date3": "1 week ago",
+        "date4": "1 week ago",
+        "date5": "2 weeks ago",
+        "date6": "2 weeks ago",
     },
 }
 
@@ -358,6 +403,58 @@ def get_reviews(lang: str = Query("es", regex="^(es|pt|en)$")) -> ReviewsData:
     """Get reviews in the specified language"""
     t = TRANSLATIONS.get(lang, TRANSLATIONS["es"])
     
+    # Translate reviews
+    translated_reviews = [
+        Review(
+            id="1",
+            rating=5,
+            text=t["review1"],
+            author=t["verified_user"],
+            date=t["date1"],
+            verified_purchase=True,
+        ),
+        Review(
+            id="2",
+            rating=5,
+            text=t["review2"],
+            author=t["verified_user"],
+            date=t["date2"],
+            verified_purchase=True,
+        ),
+        Review(
+            id="3",
+            rating=5,
+            text=t["review3"],
+            author=t["verified_user"],
+            date=t["date3"],
+            verified_purchase=True,
+        ),
+        Review(
+            id="4",
+            rating=5,
+            text=t["review4"],
+            author=t["verified_user"],
+            date=t["date4"],
+            verified_purchase=True,
+        ),
+        Review(
+            id="5",
+            rating=5,
+            text=t["review5"],
+            author=t["verified_user"],
+            date=t["date5"],
+            verified_purchase=True,
+        ),
+        Review(
+            id="6",
+            rating=5,
+            text=t["review6"],
+            author=t["verified_user"],
+            date=t["date6"],
+            verified_purchase=True,
+        ),
+    ]
+    
     return ReviewsData(
         overall_rating=REVIEWS_DATA.overall_rating,
         total_reviews=REVIEWS_DATA.total_reviews,
@@ -368,7 +465,7 @@ def get_reviews(lang: str = Query("es", regex="^(es|pt|en)$")) -> ReviewsData:
             CharacteristicRating(name=t["char3"], rating=4.5),
             CharacteristicRating(name=t["char4"], rating=4.5),
         ],
-        reviews=REVIEWS_DATA.reviews,  # Keep original Spanish reviews
+        reviews=translated_reviews,
     )
 
 
