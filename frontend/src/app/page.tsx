@@ -77,6 +77,45 @@ const translations = {
     send: "Enviar",
     chatError: "Hubo un error consultando el asistente.",
     freeShippingBadge: "Envío gratis",
+    productFeatures: "Lo que tenés que saber de este producto",
+    feature1: "Memoria RAM: 8 GB.",
+    feature2: "Dispositivo desbloqueado para que elijas tu compañía telefónica preferida.",
+    feature3: "Memoria interna de 256 GB.",
+    seeFeatures: "Ver características",
+    buyingOptions: "Opciones de compra:",
+    newProductsFrom: "productos nuevos desde",
+    benefit1: "Envío gratis a todo el país",
+    benefit2: "Devolución gratis con Mercado Libre",
+    unitsAvailable: "unidades disponibles",
+    officialStore: "Tienda oficial",
+    personalizedAttention: "Atención personalizada",
+    officialWarranty: "Garantía oficial de 12 meses",
+    electronicInvoice: "Facturación electrónica disponible",
+    sellerProducts: "Productos del vendedor",
+    knowOtherPayments: "Conocé otros medios de pago",
+    alsoViewedFull: "Quienes vieron este producto también compraron",
+    screenSize: "Tamaño de la pantalla:",
+    screenSmall: "PEQUEÑO",
+    screenLarge: "GRANDE",
+    capacityTitle: "Capacidad y eficiencia",
+    capacityText: "Con un procesador Exynos 1480 y 8 GB de RAM vas a tener un rendimiento excepcional para aplicaciones, juegos y multitarea en Android 14 One UI 6.1.",
+    multimediaTitle: "Experiencia multimedia inmersiva",
+    multimediaText: "La pantalla Super AMOLED de 6.6\" ofrece colores vivos y contraste intenso con Vision Booster, ideal para ver contenido en exteriores, mientras que Dolby Atmos brinda sonido envolvente.",
+    securityTitle: "Seguridad y autonomía",
+    securityText: "Incluye lector de huellas en pantalla, Samsung Knox Vault y batería de 5000 mAh con carga rápida de 25 W para que te acompañe todo el día.",
+    photoReviews: "Opiniones con fotos",
+    sortBy: "Ordenar",
+    rating: "Calificación",
+    verifiedBadge: "Comprado a Tienda oficial Samsung",
+    highlightedReviews: "Opiniones destacadas",
+    commentsCount: "comentarios",
+    chatWelcome: "Hola, ¿en qué te ayudo? Podés preguntar por características, cámaras, batería o cuotas.",
+    chatTip: "💡 Tip:",
+    chatTipText: "Ingresá tu OpenAI API Key arriba para respuestas más inteligentes con GPT-4.",
+    typing: "Escribiendo",
+    average: "promedio",
+    ratings: "calificaciones",
+    installmentsText: "sin interés",
   },
   pt: {
     loading: "Carregando...",
@@ -146,6 +185,45 @@ const translations = {
     send: "Enviar",
     chatError: "Houve um erro ao consultar o assistente.",
     freeShippingBadge: "Frete grátis",
+    productFeatures: "O que você precisa saber sobre este produto",
+    feature1: "Memória RAM: 8 GB.",
+    feature2: "Dispositivo desbloqueado para você escolher sua operadora preferida.",
+    feature3: "Memória interna de 256 GB.",
+    seeFeatures: "Ver características",
+    buyingOptions: "Opções de compra:",
+    newProductsFrom: "produtos novos a partir de",
+    benefit1: "Frete grátis para todo o país",
+    benefit2: "Devolução grátis com Mercado Livre",
+    unitsAvailable: "unidades disponíveis",
+    officialStore: "Loja oficial",
+    personalizedAttention: "Atendimento personalizado",
+    officialWarranty: "Garantia oficial de 12 meses",
+    electronicInvoice: "Faturamento eletrônico disponível",
+    sellerProducts: "Produtos do vendedor",
+    knowOtherPayments: "Conheça outras formas de pagamento",
+    alsoViewedFull: "Quem viu este produto também comprou",
+    screenSize: "Tamanho da tela:",
+    screenSmall: "PEQUENO",
+    screenLarge: "GRANDE",
+    capacityTitle: "Capacidade e eficiência",
+    capacityText: "Com um processador Exynos 1480 e 8 GB de RAM você terá um desempenho excepcional para aplicativos, jogos e multitarefas no Android 14 One UI 6.1.",
+    multimediaTitle: "Experiência multimídia imersiva",
+    multimediaText: "A tela Super AMOLED de 6,6\" oferece cores vivas e contraste intenso com Vision Booster, ideal para visualizar conteúdo ao ar livre, enquanto o Dolby Atmos oferece som envolvente.",
+    securityTitle: "Segurança e autonomia",
+    securityText: "Inclui leitor de impressão digital na tela, Samsung Knox Vault e bateria de 5000 mAh com carregamento rápido de 25 W para acompanhá-lo o dia todo.",
+    photoReviews: "Opiniões com fotos",
+    sortBy: "Ordenar",
+    rating: "Avaliação",
+    verifiedBadge: "Comprado na Loja oficial Samsung",
+    highlightedReviews: "Opiniões destacadas",
+    commentsCount: "comentários",
+    chatWelcome: "Olá, como posso ajudar? Você pode perguntar sobre características, câmeras, bateria ou parcelas.",
+    chatTip: "💡 Dica:",
+    chatTipText: "Digite sua chave da API OpenAI acima para respostas mais inteligentes com GPT-4.",
+    typing: "Digitando",
+    average: "média",
+    ratings: "avaliações",
+    installmentsText: "sem juros",
   },
   en: {
     loading: "Loading...",
@@ -215,6 +293,45 @@ const translations = {
     send: "Send",
     chatError: "There was an error consulting the assistant.",
     freeShippingBadge: "Free shipping",
+    productFeatures: "What you need to know about this product",
+    feature1: "RAM Memory: 8 GB.",
+    feature2: "Unlocked device so you can choose your preferred carrier.",
+    feature3: "Internal memory of 256 GB.",
+    seeFeatures: "See features",
+    buyingOptions: "Purchase options:",
+    newProductsFrom: "new products from",
+    benefit1: "Free shipping nationwide",
+    benefit2: "Free returns with Mercado Libre",
+    unitsAvailable: "units available",
+    officialStore: "Official store",
+    personalizedAttention: "Personalized service",
+    officialWarranty: "12-month official warranty",
+    electronicInvoice: "Electronic invoicing available",
+    sellerProducts: "Seller products",
+    knowOtherPayments: "Learn about other payment methods",
+    alsoViewedFull: "Those who viewed this product also bought",
+    screenSize: "Screen size:",
+    screenSmall: "SMALL",
+    screenLarge: "LARGE",
+    capacityTitle: "Capacity and efficiency",
+    capacityText: "With an Exynos 1480 processor and 8 GB of RAM you'll have exceptional performance for apps, games and multitasking on Android 14 One UI 6.1.",
+    multimediaTitle: "Immersive multimedia experience",
+    multimediaText: "The 6.6\" Super AMOLED display offers vivid colors and intense contrast with Vision Booster, ideal for viewing outdoor content, while Dolby Atmos delivers surround sound.",
+    securityTitle: "Security and autonomy",
+    securityText: "Includes on-screen fingerprint reader, Samsung Knox Vault and 5000 mAh battery with 25W fast charging to keep you going all day.",
+    photoReviews: "Reviews with photos",
+    sortBy: "Sort",
+    rating: "Rating",
+    verifiedBadge: "Purchased from Samsung Official Store",
+    highlightedReviews: "Featured reviews",
+    commentsCount: "comments",
+    chatWelcome: "Hello, how can I help you? You can ask about features, cameras, battery or installments.",
+    chatTip: "💡 Tip:",
+    chatTipText: "Enter your OpenAI API Key above for smarter responses with GPT-4.",
+    typing: "Typing",
+    average: "average",
+    ratings: "ratings",
+    installmentsText: "interest-free",
   },
 };
 
@@ -679,12 +796,12 @@ export default function Home() {
                 <div className={styles.ratingRow}>
                   <span className={styles.stars}>★★★★★</span>
                   <span>
-                    {item.ratings} promedio | {item.reviews_count.toLocaleString()} calificaciones
+                    {item.ratings} {t.average} | {item.reviews_count.toLocaleString()} {t.ratings}
                   </span>
                 </div>
                 <div className={styles.price}>{formattedPrice}</div>
                 <span className={styles.installments}>
-                  En 12x {currencyFormatter.format(item.price / 12)} sin interés
+                  En 12x {currencyFormatter.format(item.price / 12)} {t.installmentsText}
                 </span>
 
                 <div className={styles.colorSection}>
@@ -697,11 +814,11 @@ export default function Home() {
                 </div>
 
                 <div className={styles.productFeatures}>
-                  <h3>Lo que tenés que saber de este producto</h3>
+                  <h3>{t.productFeatures}</h3>
                   <ul className={styles.featuresList}>
-                    <li>Memoria RAM: 8 GB.</li>
-                    <li>Dispositivo desbloqueado para que elijas tu compañía telefónica preferida.</li>
-                    <li>Memoria interna de 256 GB.</li>
+                    <li>{t.feature1}</li>
+                    <li>{t.feature2}</li>
+                    <li>{t.feature3}</li>
                   </ul>
                   <a 
                     href="#specifications" 
@@ -711,22 +828,22 @@ export default function Home() {
                       document.getElementById('specifications')?.scrollIntoView({ behavior: 'smooth' });
                     }}
                   >
-                    Ver características
+                    {t.seeFeatures}
                   </a>
                 </div>
 
                 <div className={styles.buyingOptions}>
-                  <h3>Opciones de compra:</h3>
+                  <h3>{t.buyingOptions}</h3>
                   <p className={styles.newProductsLink}>
-                    <span className={styles.linkText}>5 productos nuevos desde</span> <span className={styles.linkPrice}>$ 975.950</span>
+                    <span className={styles.linkText}>5 {t.newProductsFrom}</span> <span className={styles.linkPrice}>$ 975.950</span>
                   </p>
                 </div>
               </div>
               <div className={styles.purchaseActions}>
                 <div className={styles.benefits}>
-                  <span>Envío gratis a todo el país</span>
-                  <span>Devolución gratis con Mercado Libre</span>
-                  <span>{item.stock} unidades disponibles</span>
+                  <span>{t.benefit1}</span>
+                  <span>{t.benefit2}</span>
+                  <span>{item.stock} {t.unitsAvailable}</span>
                 </div>
                 <div className={styles.buttons}>
                   <button className={styles.primaryButton} type="button">
@@ -744,14 +861,14 @@ export default function Home() {
                       <p>MercadoLíder {item.seller.reputation}</p>
                     </div>
                     <div className={styles.reputation}>
-                      <div className={styles.officialStoreBadge}>Tienda oficial</div>
-                      <span>{item.seller.sales.toLocaleString("es-AR")} ventas</span>
+                      <div className={styles.officialStoreBadge}>{t.officialStore}</div>
+                      <span>{item.seller.sales.toLocaleString("es-AR")} {t.sales}</span>
                     </div>
                   </div>
                   <ul className={styles.list}>
-                    <li>Atención personalizada</li>
-                    <li>Garantía oficial de 12 meses</li>
-                    <li>Facturación electrónica disponible</li>
+                    <li>{t.personalizedAttention}</li>
+                    <li>{t.officialWarranty}</li>
+                    <li>{t.electronicInvoice}</li>
                   </ul>
                 </div>
 
@@ -788,7 +905,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <a href="#" className={styles.morePaymentMethods}>{t.knowMore}</a>
+                  <a href="#" className={styles.morePaymentMethods}>{t.knowOtherPayments}</a>
                 </div>
               </div>
 
@@ -814,7 +931,7 @@ export default function Home() {
             <section className={styles.upperLeftSections}>
               <div className={styles.leftSectionItem}>
                 <div className={styles.carouselHeader}>
-                  <h2 className={styles.sectionTitle}>{t.alsoViewed}</h2>
+                  <h2 className={styles.sectionTitle}>{t.alsoViewedFull}</h2>
                 </div>
                 <div className={styles.carouselContainer}>
                   <button 
@@ -853,7 +970,7 @@ export default function Home() {
 
               <div className={styles.leftSectionItem}>
                 <div className={styles.carouselHeader}>
-                  <h2 className={styles.sectionTitle}>Productos del vendedor</h2>
+                  <h2 className={styles.sectionTitle}>{t.sellerProducts}</h2>
                 </div>
                 <div className={styles.carouselContainer}>
                   <button 
@@ -899,7 +1016,7 @@ export default function Home() {
                 </div>
                 <div className={styles.screenSizeInfo}>
                   <div className={styles.screenSizeText}>
-                    Tamaño de la pantalla: <strong>6.6&quot;</strong>
+                    {t.screenSize} <strong>6.6&quot;</strong>
                   </div>
                   <div className={styles.screenSizeDimensions}>
                     (16.11 cm x 7.74 cm x 8.2 mm)
@@ -913,8 +1030,8 @@ export default function Home() {
                       <div className={styles.barSegmentActive}></div>
                     </div>
                     <div className={styles.barLabels}>
-                      <span className={styles.barLabelSmall}>PEQUEÑO</span>
-                      <span className={styles.barLabelLarge}>GRANDE</span>
+                      <span className={styles.barLabelSmall}>{t.screenSmall}</span>
+                      <span className={styles.barLabelLarge}>{t.screenLarge}</span>
                     </div>
                   </div>
                 </div>
@@ -932,20 +1049,17 @@ export default function Home() {
               <div className={styles.leftSectionItem}>
               <h2 className={styles.sectionTitle}>{t.description}</h2>
               <p>{item.description}</p>
-              <p className={styles.highlight}>Capacidad y eficiencia</p>
+              <p className={styles.highlight}>{t.capacityTitle}</p>
               <p>
-                Con un procesador Exynos 1480 y 8 GB de RAM vas a tener un rendimiento excepcional para aplicaciones, juegos y
-                multitarea en Android 14 One UI 6.1.
+                {t.capacityText}
               </p>
-                <p className={styles.highlight}>Experiencia multimedia inmersiva</p>
+                <p className={styles.highlight}>{t.multimediaTitle}</p>
               <p>
-                La pantalla Super AMOLED de 6.6&quot; ofrece colores vivos y contraste intenso con Vision Booster, ideal para ver
-                contenido en exteriores, mientras que Dolby Atmos brinda sonido envolvente.
+                {t.multimediaText}
               </p>
-              <p className={styles.highlight}>Seguridad y autonomía</p>
+              <p className={styles.highlight}>{t.securityTitle}</p>
               <p>
-                Incluye lector de huellas en pantalla, Samsung Knox Vault y batería de 5000 mAh con carga rápida de 25 W para que
-                te acompañe todo el día.
+                {t.securityText}
               </p>
               </div>
 
@@ -999,7 +1113,7 @@ export default function Home() {
 
                     <div className={styles.reviewsRight}>
                       <div className={styles.photoReviews}>
-                        <h3 className={styles.photoReviewsTitle}>Opiniones con fotos</h3>
+                        <h3 className={styles.photoReviewsTitle}>{t.photoReviews}</h3>
                         <div className={styles.photoThumbnails}>
                           {[1, 2, 3, 4].map((photoNum) => (
                             <div key={photoNum} className={styles.photoThumbnail}>
@@ -1009,18 +1123,18 @@ export default function Home() {
                           ))}
                         </div>
                         <div className={styles.reviewFilters}>
-                          <div className={styles.filterButton}>Ordenar</div>
-                          <div className={styles.filterButton}>Calificación</div>
+                          <div className={styles.filterButton}>{t.sortBy}</div>
+                          <div className={styles.filterButton}>{t.rating}</div>
                         </div>
                         <div className={styles.verifiedBadge}>
                           <span className={styles.checkmark}>✓</span>
-                          Comprado a Tienda oficial Samsung
+                          {t.verifiedBadge}
                         </div>
                       </div>
 
                       <div className={styles.highlightedReviews}>
-                        <h3 className={styles.highlightedTitle}>Opiniones destacadas</h3>
-                        <div className={styles.commentCount}>122 comentarios</div>
+                        <h3 className={styles.highlightedTitle}>{t.highlightedReviews}</h3>
+                        <div className={styles.commentCount}>122 {t.commentsCount}</div>
                         <div className={styles.reviewsList}>
                           {reviews.reviews.map((review: Review) => (
                             <div key={review.id} className={styles.reviewItem}>
@@ -1079,7 +1193,7 @@ export default function Home() {
           {isTyping && (
             <div className={styles.chatBubbleBot}>
               <div className={styles.typingIndicator}>
-                <span>Escribiendo</span>
+                <span>{t.typing}</span>
                 <div className={styles.typingDots}>
                   <span>.</span>
                   <span>.</span>
@@ -1090,8 +1204,8 @@ export default function Home() {
           )}
           {chatMessages.length === 0 && !isTyping && (
             <div className={styles.chatBubbleBot}>
-              Hola, ¿en qué te ayudo? Podés preguntar por características, cámaras, batería o cuotas.
-              {!openaiKey && <><br/><br/><strong>💡 Tip:</strong> Ingresá tu OpenAI API Key arriba para respuestas más inteligentes con GPT-4.</>}
+              {t.chatWelcome}
+              {!openaiKey && <><br/><br/><strong>{t.chatTip}</strong> {t.chatTipText}</>}
             </div>
           )}
         </div>
