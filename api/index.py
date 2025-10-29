@@ -4,18 +4,36 @@ from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
 
-# RAG system enabled with proper error handling
+# RAG system - import with detailed error handling
+RAG_AVAILABLE = False
+ingest_corpus = None
+answer_question = None
+
 try:
-    from rag import ingest_corpus, answer_question
+    import sys
+    import os
+    # Add current directory to path
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    if current_dir not in sys.path:
+        sys.path.insert(0, current_dir)
+    
+    from rag import ingest_corpus as _ingest, answer_question as _answer
+    ingest_corpus = _ingest
+    answer_question = _answer
     RAG_AVAILABLE = True
-except ImportError as e:
-    print(f"Warning: RAG import failed: {e}")
+    print("✅ RAG system loaded successfully")
+except Exception as e:
+    print(f"❌ RAG import failed: {type(e).__name__}: {e}")
+    import traceback
+    traceback.print_exc()
     RAG_AVAILABLE = False
+    
     def ingest_corpus(*args, **kwargs):
         pass
+    
     def answer_question(query, **kwargs):
         return {
-            "answer": "AI chat requires additional dependencies. Please check the deployment logs.",
+            "answer": f"AI chat is temporarily unavailable. Error: {str(e)[:100]}",
             "sources": []
         }
 
