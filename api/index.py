@@ -4,36 +4,18 @@ from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
 
-# RAG system - import with detailed error handling
-RAG_AVAILABLE = False
-ingest_corpus = None
-answer_question = None
-
+# RAG system enabled with proper error handling
 try:
-    import sys
-    import os
-    # Add current directory to path
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    if current_dir not in sys.path:
-        sys.path.insert(0, current_dir)
-    
-    from rag import ingest_corpus as _ingest, answer_question as _answer
-    ingest_corpus = _ingest
-    answer_question = _answer
+    from rag import ingest_corpus, answer_question
     RAG_AVAILABLE = True
-    print("✅ RAG system loaded successfully")
-except Exception as e:
-    print(f"❌ RAG import failed: {type(e).__name__}: {e}")
-    import traceback
-    traceback.print_exc()
+except ImportError as e:
+    print(f"Warning: RAG import failed: {e}")
     RAG_AVAILABLE = False
-    
     def ingest_corpus(*args, **kwargs):
         pass
-    
     def answer_question(query, **kwargs):
         return {
-            "answer": f"AI chat is temporarily unavailable. Error: {str(e)[:100]}",
+            "answer": "AI chat requires additional dependencies. Please check the deployment logs.",
             "sources": []
         }
 
@@ -234,43 +216,35 @@ class SearchResponse(BaseModel):
     results: List[SearchResult]
 
 
-# Global flag to track if documents have been ingested
-_DOCS_INGESTED = False
-
-def _ensure_docs_ingested() -> None:
-    """Ensure documents are ingested on first use (lazy loading for serverless)"""
-    global _DOCS_INGESTED
-    if RAG_AVAILABLE and not _DOCS_INGESTED:
-        try:
-            docs = [
-                {"id": "title", "section": "Título", "text": SAMPLE_ITEM.title},
-                {"id": "desc", "section": "Descripción", "text": SAMPLE_ITEM.description},
-                {
-                    "id": "specs",
-                    "section": "Características del producto",
-                    "text": "\n".join([f"{c.name}: {c.rating}★" for c in REVIEWS_DATA.characteristic_ratings]),
-                },
-                {
-                    "id": "seller",
-                    "section": "Vendedor",
-                    "text": f"{SAMPLE_ITEM.seller.name} reputación {SAMPLE_ITEM.seller.reputation} ventas {SAMPLE_ITEM.seller.sales}",
-                },
-                {
-                    "id": "payments",
-                    "section": "Medios de pago",
-                    "text": ", ".join([m.description for m in SAMPLE_ITEM.payment_methods]),
-                },
-                {
-                    "id": "reviews",
-                    "section": "Opiniones destacadas",
-                    "text": "\n\n".join([r.text for r in REVIEWS_DATA.reviews]),
-                },
-            ]
-            ingest_corpus(docs)
-            _DOCS_INGESTED = True
-            print("✅ Documents ingested successfully")
-        except Exception as e:
-            print(f"❌ Failed to ingest documents: {e}")
+@app.on_event("startup")
+def _bootstrap_vectors() -> None:
+    # Build a tiny in-memory corpus from existing sections
+    if RAG_AVAILABLE:
+        docs = [
+            {"id": "title", "section": "Título", "text": SAMPLE_ITEM.title},
+            {"id": "desc", "section": "Descripción", "text": SAMPLE_ITEM.description},
+            {
+                "id": "specs",
+                "section": "Características del producto",
+                "text": "\n".join([f"{c.name}: {c.rating}★" for c in REVIEWS_DATA.characteristic_ratings]),
+            },
+            {
+                "id": "seller",
+                "section": "Vendedor",
+                "text": f"{SAMPLE_ITEM.seller.name} reputación {SAMPLE_ITEM.seller.reputation} ventas {SAMPLE_ITEM.seller.sales}",
+            },
+            {
+                "id": "payments",
+                "section": "Medios de pago",
+                "text": ", ".join([m.description for m in SAMPLE_ITEM.payment_methods]),
+            },
+            {
+                "id": "reviews",
+                "section": "Opiniones destacadas",
+                "text": "\n\n".join([r.text for r in REVIEWS_DATA.reviews]),
+            },
+        ]
+        ingest_corpus(docs)
 
 
 @app.post("/py-api/search", response_model=SearchResponse)
@@ -318,9 +292,6 @@ async def search_endpoint(payload: SearchRequest):
 @app.post("/py-api/agent/chat")
 @app.post("/agent/chat")  # Keep both for compatibility
 def chat_endpoint(payload: ChatRequest):
-    # Ensure documents are ingested (lazy loading for serverless)
-    _ensure_docs_ingested()
-    
     # Temporarily set the API key if provided
     import os
     original_key = os.environ.get("OPENAI_API_KEY")
