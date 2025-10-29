@@ -398,73 +398,73 @@ interface SearchResult {
   score?: number;
 }
 
-const currencyFormatter = new Intl.NumberFormat("es-AR", {
+const currencyFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
-  currency: "ARS",
-  minimumFractionDigits: 0,
+  currency: "USD",
+  minimumFractionDigits: 2,
 });
 
 const RELATED_PRODUCTS = [
   {
-    title: "Samsung Galaxy A55 5G Amarillo",
-    price: 972000,
+    title: "Samsung Galaxy A55 5G Yellow",
+    price: 429,
     image: "/galaxy_a55_amarillo.webp",
-    badge: "Envío gratis",
+    badge: "Free shipping",
   },
   {
-    title: "Samsung Galaxy S24 256 GB Gris",
-    price: 1450000,
+    title: "Samsung Galaxy S24 256 GB Gray",
+    price: 649,
     image: "/galaxy_s24_gris.webp",
-    badge: "Envío gratis",
+    badge: "Free shipping",
   },
   {
-    title: "Samsung Galaxy A55 5G (Vista trasera)",
-    price: 972000,
+    title: "Samsung Galaxy A55 5G (Back view)",
+    price: 429,
     image: "/hero_4.webp",
-    badge: "Envío gratis",
+    badge: "Free shipping",
   },
   {
-    title: "Samsung Galaxy A55 5G (Detalle cámara)",
-    price: 972000,
+    title: "Samsung Galaxy A55 5G (Camera detail)",
+    price: 429,
     image: "/hero_5.webp",
-    badge: "Envío gratis",
+    badge: "Free shipping",
   },
 ];
 
 const ALSO_BOUGHT = [
   {
-    title: "Samsung Galaxy A55 5G Azul",
-    price: 972000,
+    title: "Samsung Galaxy A55 5G Blue",
+    price: 429,
     image: "/hero_1.webp",
   },
   {
-    title: "Samsung Galaxy A55 5G Amarillo",
-    price: 972000,
+    title: "Samsung Galaxy A55 5G Yellow",
+    price: 429,
     image: "/galaxy_a55_amarillo.webp",
   },
   {
-    title: "Samsung Galaxy S24 256 GB Gris",
-    price: 1450000,
+    title: "Samsung Galaxy S24 256 GB Gray",
+    price: 649,
     image: "/galaxy_s24_gris.webp",
   },
   {
     title: "Tecno Spark 20 Pro+",
-    price: 485000,
+    price: 215,
     image: "/tecno.webp",
   },
   {
-    title: "Samsung Galaxy A55 5G (Vista lateral)",
-    price: 972000,
+    title: "Samsung Galaxy A55 5G (Side view)",
+    price: 429,
     image: "/hero_3.webp",
   },
   {
-    title: "Samsung Galaxy A55 5G (Vista trasera)",
-    price: 972000,
+    title: "Samsung Galaxy A55 5G (Back view)",
+    price: 429,
     image: "/hero_4.webp",
   },
   {
-    title: "Samsung Galaxy A55 5G (Detalle cámara)",
-    price: 972000,
+    title: "Samsung Galaxy A55 5G (Camera detail)",
+    price: 429,
     image: "/hero_5.webp",
   },
 ];
@@ -505,7 +505,7 @@ const SPECIFICATIONS = [
 ];
 
 export default function Home() {
-  const [language, setLanguage] = useState<Language>('es');
+  const [language, setLanguage] = useState<Language>('en');
   const [item, setItem] = useState<ItemDetail | null>(null);
   const [selectedImage, setSelectedImage] = useState<string>("");
   const [alsoBoughtIndex, setAlsoBoughtIndex] = useState<number>(0);
@@ -664,14 +664,9 @@ export default function Home() {
     <div className={styles.page}>
       <div className={styles.headerWrapper}>
         <header className={styles.banner}>
-        <Image
-          className={styles.logo}
-            src="/logo_MELI.png"
-            alt="Mercado Libre logo"
-            width={200}
-            height={56}
-          priority
-        />
+        <div className={styles.logo}>
+          <span className={styles.logoText}>ShopHub</span>
+        </div>
           <div className={styles.searchBar}>
             <input 
               type="text" 
@@ -801,7 +796,7 @@ export default function Home() {
                 </div>
                 <div className={styles.price}>{formattedPrice}</div>
                 <span className={styles.installments}>
-                  En 12x {currencyFormatter.format(item.price / 12)} {t.installmentsText}
+                  12x {currencyFormatter.format(item.price / 12)} {t.installmentsText}
                 </span>
 
                 <div className={styles.colorSection}>
@@ -835,7 +830,7 @@ export default function Home() {
                 <div className={styles.buyingOptions}>
                   <h3>{t.buyingOptions}</h3>
                   <p className={styles.newProductsLink}>
-                    <span className={styles.linkText}>5 {t.newProductsFrom}</span> <span className={styles.linkPrice}>$ 975.950</span>
+                    <span className={styles.linkText}>5 {t.newProductsFrom}</span> <span className={styles.linkPrice}>$435.00</span>
                   </p>
                 </div>
               </div>
@@ -858,7 +853,7 @@ export default function Home() {
                   <div className={styles.sellerHeader}>
                     <div>
                       <p className={styles.sellerName}>{item.seller.name}</p>
-                      <p>MercadoLíder {item.seller.reputation}</p>
+                      <p>{item.seller.reputation} Seller</p>
                     </div>
                     <div className={styles.reputation}>
                       <div className={styles.officialStoreBadge}>{t.officialStore}</div>

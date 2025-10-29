@@ -8,7 +8,7 @@
 }
 
 .headerWrapper {
-  background-color: #ffe600;
+  background-color: #2d2d2d;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -25,7 +25,15 @@
 .logo {
   height: 44px;
   width: auto;
-  object-fit: contain;
+  display: flex;
+  align-items: center;
+}
+
+.logoText {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.5px;
 }
 
 .searchBar {
@@ -51,7 +59,7 @@
 .searchBar button {
   background-color: transparent;
   border: none;
-  color: #3483fa;
+  color: #4a90e2;
   font-weight: 600;
   cursor: pointer;
 }
@@ -130,10 +138,11 @@
   justify-content: flex-end;
   gap: 8px;
   font-size: 13px;
+  color: #cccccc;
 }
 
 .location span:first-child {
-  color: #666;
+  color: #aaaaaa;
 }
 
 .languageSelector {
@@ -145,9 +154,9 @@
 
 .languageSelector button {
   padding: 6px 10px;
-  border: 1px solid #3483fa;
+  border: 1px solid #4a90e2;
   background: transparent;
-  color: #3483fa;
+  color: #4a90e2;
   font-size: 12px;
   font-weight: 600;
   border-radius: 4px;
@@ -156,17 +165,17 @@
 }
 
 .languageSelector button:hover {
-  background: #f0f7ff;
+  background: #3a4a5a;
 }
 
 .languageSelector button.langActive {
-  background: #3483fa;
+  background: #4a90e2;
   color: white;
 }
 
 .secondaryHeader {
-  background: #fff159;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  background: #3a3a3a;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .secondaryHeaderContent {
@@ -176,7 +185,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-  color: #333;
+  color: #cccccc;
 }
 
 .main {
@@ -1312,7 +1321,7 @@
 }
 
 .primaryButton {
-  background: #3483fa;
+  background: #4a90e2;
   color: white;
   padding: 12px 20px;
   border-radius: 6px;
@@ -1324,15 +1333,15 @@
 }
 
 .primaryButton:hover {
-  background: #2968d7;
+  background: #3a7bc8;
 }
 
 .secondaryButton {
-  background: #e8f4fd;
-  color: #3483fa;
+  background: #e3f0fa;
+  color: #4a90e2;
   padding: 12px 20px;
   border-radius: 6px;
-  border: 1px solid #3483fa;
+  border: 1px solid #4a90e2;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
@@ -1340,7 +1349,7 @@
 }
 
 .secondaryButton:hover {
-  background: #d1ebfc;
+  background: #d1e5f7;
 }
 
 .sellerHeader {

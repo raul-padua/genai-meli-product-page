@@ -111,10 +111,10 @@ TRANSLATIONS = {
     "es": {
         "title": "Samsung Galaxy A55 5G Dual SIM 256 GB 8 GB RAM (Celeste)",
         "description": "Capacidad y eficiencia en un diseño premium. El nuevo Galaxy A55 incorpora el procesador Exynos 1480, 8 GB de RAM y almacenamiento de 256 GB expandible para que disfrutes de múltiples aplicaciones sin límites. Su pantalla Super AMOLED de 6.6'' con Vision Booster ofrece colores intensos incluso a plena luz, mientras que la batería de 5000 mAh con carga rápida de 25 W te acompaña todo el día.",
-        "payment1": "En 6x $ 162.000 sin interés",
-        "payment2": "En 12x $ 81.000 sin interés",
+        "payment1": "En 6x $71.50 sin interés",
+        "payment2": "En 12x $35.75 sin interés",
         "payment3": "Transferencia bancaria",
-        "payment4": "Mercado Crédito - Cuotas con interés",
+        "payment4": "Cuotas con interés",
         "char1": "Relación precio-calidad",
         "char2": "Calidad de la cámara",
         "char3": "Duración de la batería",
@@ -143,10 +143,10 @@ TRANSLATIONS = {
     "pt": {
         "title": "Samsung Galaxy A55 5G Dual SIM 256 GB 8 GB RAM (Azul Claro)",
         "description": "Capacidade e eficiência em um design premium. O novo Galaxy A55 incorpora o processador Exynos 1480, 8 GB de RAM e armazenamento de 256 GB expansível para que você aproveite vários aplicativos sem limites. Sua tela Super AMOLED de 6,6'' com Vision Booster oferece cores intensas mesmo sob luz solar direta, enquanto a bateria de 5000 mAh com carga rápida de 25 W acompanha você o dia todo.",
-        "payment1": "Em 6x $ 162.000 sem juros",
-        "payment2": "Em 12x $ 81.000 sem juros",
+        "payment1": "Em 6x $71.50 sem juros",
+        "payment2": "Em 12x $35.75 sem juros",
         "payment3": "Transferência bancária",
-        "payment4": "Mercado Crédito - Parcelas com juros",
+        "payment4": "Parcelas com juros",
         "char1": "Relação preço-qualidade",
         "char2": "Qualidade da câmera",
         "char3": "Duração da bateria",
@@ -175,10 +175,10 @@ TRANSLATIONS = {
     "en": {
         "title": "Samsung Galaxy A55 5G Dual SIM 256 GB 8 GB RAM (Light Blue)",
         "description": "Capacity and efficiency in a premium design. The new Galaxy A55 features the Exynos 1480 processor, 8 GB of RAM, and 256 GB of expandable storage so you can enjoy multiple apps without limits. Its 6.6'' Super AMOLED display with Vision Booster offers intense colors even in bright sunlight, while the 5000 mAh battery with 25W fast charging keeps you going all day.",
-        "payment1": "In 6x $ 162,000 interest-free",
-        "payment2": "In 12x $ 81,000 interest-free",
+        "payment1": "In 6x $71.50 interest-free",
+        "payment2": "In 12x $35.75 interest-free",
         "payment3": "Bank transfer",
-        "payment4": "Mercado Crédito - Installments with interest",
+        "payment4": "Installments with interest",
         "char1": "Price-quality ratio",
         "char2": "Camera quality",
         "char3": "Battery life",
@@ -274,14 +274,14 @@ app.add_middleware(
 
 SAMPLE_ITEM = ItemDetail(
     id="MLA123456",
-    title="Samsung Galaxy A55 5G Dual SIM 256 GB 8 GB RAM (Celeste)",
+    title="Samsung Galaxy A55 5G Dual SIM 256 GB 8 GB RAM (Light Blue)",
     description=(
-        "Capacidad y eficiencia en un diseño premium. El nuevo Galaxy A55 incorpora el procesador Exynos 1480, 8 GB de RAM y "
-        "almacenamiento de 256 GB expandible para que disfrutes de múltiples aplicaciones sin límites. Su pantalla Super AMOLED de 6.6'' "
-        "con Vision Booster ofrece colores intensos incluso a plena luz, mientras que la batería de 5000 mAh con carga rápida de 25 W te acompaña todo el día."
+        "Capacity and efficiency in a premium design. The new Galaxy A55 features the Exynos 1480 processor, 8 GB of RAM, and "
+        "256 GB of expandable storage so you can enjoy multiple apps without limits. Its 6.6'' Super AMOLED display "
+        "with Vision Booster offers intense colors even in bright sunlight, while the 5000 mAh battery with 25W fast charging keeps you going all day."
     ),
-    price=972000,
-    currency="ARS",
+    price=429.00,
+    currency="USD",
     images=[
         "/hero_1.webp",
         "/hero_2.webp",
@@ -291,10 +291,10 @@ SAMPLE_ITEM = ItemDetail(
         "/hero_6.webp",
     ],
     payment_methods=[
-        PaymentMethod(type="credit_card", description="En 6x $ 162.000 sin interés"),
-        PaymentMethod(type="credit_card", description="En 12x $ 81.000 sin interés"),
-        PaymentMethod(type="transfer", description="Transferencia bancaria"),
-        PaymentMethod(type="mercado_credito", description="Mercado Crédito - Cuotas con interés"),
+        PaymentMethod(type="credit_card", description="In 6x $71.50 interest-free"),
+        PaymentMethod(type="credit_card", description="In 12x $35.75 interest-free"),
+        PaymentMethod(type="transfer", description="Bank transfer"),
+        PaymentMethod(type="installments", description="Installments with interest"),
     ],
     seller=SellerInfo(name="Samsung Official Store", reputation="Platinum", sales=15234),
     stock=18,
