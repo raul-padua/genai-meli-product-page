@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from pydantic import BaseModel
 from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
@@ -21,9 +21,12 @@ def ingest_corpus(docs: list) -> None:
     _DOCS = docs
     print(f"✅ Ingested {len(docs)} documents")
 
-def answer_question(query: str, **kwargs) -> dict:
+def answer_question(query: str, language: str = "es", **kwargs) -> dict:
     """Answer a question using the ingested documents and OpenAI"""
     import os
+    
+    # Get translations for the specified language
+    t = TRANSLATIONS.get(language, TRANSLATIONS["es"])
     
     if not OPENAI_AVAILABLE:
         return {
@@ -34,7 +37,7 @@ def answer_question(query: str, **kwargs) -> dict:
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
         return {
-            "answer": "Por favor, proporciona tu clave de API de OpenAI para usar el chat con IA.",
+            "answer": t["no_api_key"],
             "sources": []
         }
     
@@ -62,17 +65,14 @@ def answer_question(query: str, **kwargs) -> dict:
         # Call OpenAI
         client = OpenAI(api_key=api_key)
         
-        system_prompt = """Eres un asistente de compras inteligente. 
-Responde preguntas sobre el producto basándote ÚNICAMENTE en la información proporcionada.
-Si no tienes información suficiente, dilo claramente.
-Responde en español de manera concisa y útil."""
+        system_prompt = t["system_prompt"]
         
-        user_prompt = f"""Contexto del producto:
+        user_prompt = f"""{t["context_prefix"]}
 {context}
 
-Pregunta del usuario: {query}
+{t["question_prefix"]} {query}
 
-Responde basándote en el contexto proporcionado:"""
+{t["answer_instruction"]}"""
         
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
@@ -93,12 +93,73 @@ Responde basándote en el contexto proporcionado:"""
         }
         
     except Exception as e:
+        error_msg = {
+            "es": f"Error al procesar tu pregunta: {str(e)[:100]}",
+            "pt": f"Erro ao processar sua pergunta: {str(e)[:100]}",
+            "en": f"Error processing your question: {str(e)[:100]}"
+        }
         return {
-            "answer": f"Error al procesar tu pregunta: {str(e)[:100]}",
+            "answer": error_msg.get(language, error_msg["es"]),
             "sources": []
         }
 
 RAG_AVAILABLE = OPENAI_AVAILABLE
+
+
+# Translation dictionaries
+TRANSLATIONS = {
+    "es": {
+        "title": "Samsung Galaxy A55 5G Dual SIM 256 GB 8 GB RAM (Celeste)",
+        "description": "Capacidad y eficiencia en un diseño premium. El nuevo Galaxy A55 incorpora el procesador Exynos 1480, 8 GB de RAM y almacenamiento de 256 GB expandible para que disfrutes de múltiples aplicaciones sin límites. Su pantalla Super AMOLED de 6.6'' con Vision Booster ofrece colores intensos incluso a plena luz, mientras que la batería de 5000 mAh con carga rápida de 25 W te acompaña todo el día.",
+        "payment1": "En 6x $ 162.000 sin interés",
+        "payment2": "En 12x $ 81.000 sin interés",
+        "payment3": "Transferencia bancaria",
+        "payment4": "Mercado Crédito - Cuotas con interés",
+        "char1": "Relación precio-calidad",
+        "char2": "Calidad de la cámara",
+        "char3": "Duración de la batería",
+        "char4": "Durabilidad",
+        "system_prompt": "Eres un asistente de compras inteligente. Responde preguntas sobre el producto basándote ÚNICAMENTE en la información proporcionada. Si no tienes información suficiente, dilo claramente. Responde en español de manera concisa y útil.",
+        "no_api_key": "Por favor, proporciona tu clave de API de OpenAI para usar el chat con IA.",
+        "context_prefix": "Contexto del producto:",
+        "question_prefix": "Pregunta del usuario:",
+        "answer_instruction": "Responde basándote en el contexto proporcionado:",
+    },
+    "pt": {
+        "title": "Samsung Galaxy A55 5G Dual SIM 256 GB 8 GB RAM (Azul Claro)",
+        "description": "Capacidade e eficiência em um design premium. O novo Galaxy A55 incorpora o processador Exynos 1480, 8 GB de RAM e armazenamento de 256 GB expansível para que você aproveite vários aplicativos sem limites. Sua tela Super AMOLED de 6,6'' com Vision Booster oferece cores intensas mesmo sob luz solar direta, enquanto a bateria de 5000 mAh com carga rápida de 25 W acompanha você o dia todo.",
+        "payment1": "Em 6x $ 162.000 sem juros",
+        "payment2": "Em 12x $ 81.000 sem juros",
+        "payment3": "Transferência bancária",
+        "payment4": "Mercado Crédito - Parcelas com juros",
+        "char1": "Relação preço-qualidade",
+        "char2": "Qualidade da câmera",
+        "char3": "Duração da bateria",
+        "char4": "Durabilidade",
+        "system_prompt": "Você é um assistente de compras inteligente. Responda perguntas sobre o produto baseando-se APENAS nas informações fornecidas. Se não tiver informações suficientes, diga claramente. Responda em português de forma concisa e útil.",
+        "no_api_key": "Por favor, forneça sua chave da API OpenAI para usar o chat com IA.",
+        "context_prefix": "Contexto do produto:",
+        "question_prefix": "Pergunta do usuário:",
+        "answer_instruction": "Responda com base no contexto fornecido:",
+    },
+    "en": {
+        "title": "Samsung Galaxy A55 5G Dual SIM 256 GB 8 GB RAM (Light Blue)",
+        "description": "Capacity and efficiency in a premium design. The new Galaxy A55 features the Exynos 1480 processor, 8 GB of RAM, and 256 GB of expandable storage so you can enjoy multiple apps without limits. Its 6.6'' Super AMOLED display with Vision Booster offers intense colors even in bright sunlight, while the 5000 mAh battery with 25W fast charging keeps you going all day.",
+        "payment1": "In 6x $ 162,000 interest-free",
+        "payment2": "In 12x $ 81,000 interest-free",
+        "payment3": "Bank transfer",
+        "payment4": "Mercado Crédito - Installments with interest",
+        "char1": "Price-quality ratio",
+        "char2": "Camera quality",
+        "char3": "Battery life",
+        "char4": "Durability",
+        "system_prompt": "You are an intelligent shopping assistant. Answer questions about the product based ONLY on the information provided. If you don't have enough information, say so clearly. Respond in English concisely and helpfully.",
+        "no_api_key": "Please provide your OpenAI API key to use the AI chat.",
+        "context_prefix": "Product context:",
+        "question_prefix": "User question:",
+        "answer_instruction": "Answer based on the provided context:",
+    },
+}
 
 
 class PaymentMethod(BaseModel):
@@ -267,19 +328,54 @@ REVIEWS_DATA = ReviewsData(
 
 @app.get("/py-api/item", response_model=ItemDetail)
 @app.get("/item", response_model=ItemDetail)  # Keep both for compatibility
-def get_item_detail() -> ItemDetail:
-    return SAMPLE_ITEM
+def get_item_detail(lang: str = Query("es", regex="^(es|pt|en)$")) -> ItemDetail:
+    """Get item details in the specified language"""
+    t = TRANSLATIONS.get(lang, TRANSLATIONS["es"])
+    
+    return ItemDetail(
+        id=SAMPLE_ITEM.id,
+        title=t["title"],
+        description=t["description"],
+        price=SAMPLE_ITEM.price,
+        currency=SAMPLE_ITEM.currency,
+        images=SAMPLE_ITEM.images,
+        payment_methods=[
+            PaymentMethod(type="credit_card", description=t["payment1"]),
+            PaymentMethod(type="credit_card", description=t["payment2"]),
+            PaymentMethod(type="transfer", description=t["payment3"]),
+            PaymentMethod(type="mercado_credito", description=t["payment4"]),
+        ],
+        seller=SAMPLE_ITEM.seller,
+        stock=SAMPLE_ITEM.stock,
+        ratings=SAMPLE_ITEM.ratings,
+        reviews_count=SAMPLE_ITEM.reviews_count,
+    )
 
 
 @app.get("/py-api/reviews", response_model=ReviewsData)
 @app.get("/reviews", response_model=ReviewsData)  # Keep both for compatibility
-def get_reviews() -> ReviewsData:
-    return REVIEWS_DATA
+def get_reviews(lang: str = Query("es", regex="^(es|pt|en)$")) -> ReviewsData:
+    """Get reviews in the specified language"""
+    t = TRANSLATIONS.get(lang, TRANSLATIONS["es"])
+    
+    return ReviewsData(
+        overall_rating=REVIEWS_DATA.overall_rating,
+        total_reviews=REVIEWS_DATA.total_reviews,
+        rating_breakdown=REVIEWS_DATA.rating_breakdown,
+        characteristic_ratings=[
+            CharacteristicRating(name=t["char1"], rating=4.5),
+            CharacteristicRating(name=t["char2"], rating=4.5),
+            CharacteristicRating(name=t["char3"], rating=4.5),
+            CharacteristicRating(name=t["char4"], rating=4.5),
+        ],
+        reviews=REVIEWS_DATA.reviews,  # Keep original Spanish reviews
+    )
 
 
 class ChatRequest(BaseModel):
     question: str
     openai_key: str = None
+    language: str = "es"
 
 
 class SearchResult(BaseModel):
@@ -409,7 +505,7 @@ def chat_endpoint(payload: ChatRequest):
         os.environ["OPENAI_API_KEY"] = payload.openai_key
     
     try:
-        result = answer_question(payload.question, top_k=4, language="es")
+        result = answer_question(payload.question, language=payload.language, top_k=4)
         return result
     finally:
         # Restore original key

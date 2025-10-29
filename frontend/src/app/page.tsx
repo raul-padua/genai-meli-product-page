@@ -6,6 +6,218 @@ import styles from "./page.module.css";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || (typeof window !== 'undefined' ? '/py-api' : 'http://127.0.0.1:8000');
 
+type Language = 'es' | 'pt' | 'en';
+
+const translations = {
+  es: {
+    loading: "Cargando...",
+    searchPlaceholder: "Buscar productos, marcas y más...",
+    searchButton: "Buscar",
+    searching: "Buscando...",
+    noResults: "No se encontraron resultados",
+    sendTo: "Enviar a:",
+    city: "Capital Federal",
+    breadcrumb1: "Celulares y teléfonos",
+    breadcrumb2: "Accesorios para celulares",
+    protectedPurchase: "Compra protegida, recibí el producto que esperabas o te devolvemos tu dinero",
+    backToList: "Volver al listado",
+    breadcrumbCategory: "Celulares y Teléfonos",
+    newProduct: "Nuevo",
+    soldCount: "vendidos",
+    stock: "Stock disponible:",
+    units: "unidades",
+    quantity: "Cantidad:",
+    color: "Color:",
+    blue: "Azul",
+    buyNow: "Comprar ahora",
+    addToCart: "Agregar al carrito",
+    freeShipping: "Envío gratis",
+    arriving: "Llega",
+    tomorrow: "mañana",
+    seeShippingCosts: "Ver cómo llega",
+    soldBy: "Vendido por",
+    reputation: "Reputación",
+    sales: "ventas",
+    returns: "Devolución gratis",
+    returnsDesc: "Tenés 30 días desde que lo recibís.",
+    warranty: "Garantía",
+    warrantyDesc: "Compra Protegida con Mercado Pago.",
+    securePayment: "Pago seguro",
+    securePaymentDesc: "Recibí el producto que esperabas o te devolvemos tu dinero.",
+    paymentMethods: "Medios de pago",
+    creditCards: "Tarjetas de crédito",
+    debitCards: "Tarjetas de débito",
+    cash: "Efectivo",
+    installmentsTitle: "Cuotas sin tarjeta",
+    installmentsDesc: "Comprá en cuotas sin tarjeta con Mercado Crédito.",
+    knowMore: "Conocer más",
+    description: "Descripción",
+    specifications: "Características técnicas",
+    specRAM: "Memoria RAM",
+    specStorage: "Almacenamiento interno",
+    specMainCamera: "Cámara principal",
+    specFrontCamera: "Cámara frontal",
+    specBattery: "Batería",
+    specProcessor: "Procesador",
+    specScreen: "Pantalla",
+    specProtection: "Protección",
+    reviewsTitle: "Opiniones del producto",
+    overallRating: "Calificación general",
+    reviews: "opiniones",
+    stars: "estrellas",
+    reviewBreakdown: "Desglose de calificaciones",
+    characteristics: "Características destacadas",
+    verifiedPurchase: "Compra verificada",
+    alsoViewed: "También vieron estos productos",
+    relatedProducts: "Productos relacionados",
+    aiChatTitle: "Asistente de compras con IA",
+    aiChatSubtitle: "Hacé preguntas sobre este producto",
+    openAIKeyPlaceholder: "Ingresá tu clave de OpenAI (opcional)",
+    chatPlaceholder: "Preguntá sobre especificaciones, opiniones, comparaciones...",
+    send: "Enviar",
+    chatError: "Hubo un error consultando el asistente.",
+    freeShippingBadge: "Envío gratis",
+  },
+  pt: {
+    loading: "Carregando...",
+    searchPlaceholder: "Buscar produtos, marcas e mais...",
+    searchButton: "Buscar",
+    searching: "Buscando...",
+    noResults: "Nenhum resultado encontrado",
+    sendTo: "Enviar para:",
+    city: "São Paulo",
+    breadcrumb1: "Celulares e telefones",
+    breadcrumb2: "Acessórios para celulares",
+    protectedPurchase: "Compra protegida, receba o produto que esperava ou devolvemos seu dinheiro",
+    backToList: "Voltar à listagem",
+    breadcrumbCategory: "Celulares e Telefones",
+    newProduct: "Novo",
+    soldCount: "vendidos",
+    stock: "Estoque disponível:",
+    units: "unidades",
+    quantity: "Quantidade:",
+    color: "Cor:",
+    blue: "Azul",
+    buyNow: "Comprar agora",
+    addToCart: "Adicionar ao carrinho",
+    freeShipping: "Frete grátis",
+    arriving: "Chega",
+    tomorrow: "amanhã",
+    seeShippingCosts: "Ver como chega",
+    soldBy: "Vendido por",
+    reputation: "Reputação",
+    sales: "vendas",
+    returns: "Devolução grátis",
+    returnsDesc: "Você tem 30 dias desde que recebe.",
+    warranty: "Garantia",
+    warrantyDesc: "Compra Protegida com Mercado Pago.",
+    securePayment: "Pagamento seguro",
+    securePaymentDesc: "Receba o produto que esperava ou devolvemos seu dinheiro.",
+    paymentMethods: "Formas de pagamento",
+    creditCards: "Cartões de crédito",
+    debitCards: "Cartões de débito",
+    cash: "Dinheiro",
+    installmentsTitle: "Parcelas sem cartão",
+    installmentsDesc: "Compre parcelado sem cartão com Mercado Crédito.",
+    knowMore: "Saiba mais",
+    description: "Descrição",
+    specifications: "Características técnicas",
+    specRAM: "Memória RAM",
+    specStorage: "Armazenamento interno",
+    specMainCamera: "Câmera principal",
+    specFrontCamera: "Câmera frontal",
+    specBattery: "Bateria",
+    specProcessor: "Processador",
+    specScreen: "Tela",
+    specProtection: "Proteção",
+    reviewsTitle: "Opiniões do produto",
+    overallRating: "Avaliação geral",
+    reviews: "opiniões",
+    stars: "estrelas",
+    reviewBreakdown: "Distribuição de avaliações",
+    characteristics: "Características destacadas",
+    verifiedPurchase: "Compra verificada",
+    alsoViewed: "Também viram estes produtos",
+    relatedProducts: "Produtos relacionados",
+    aiChatTitle: "Assistente de compras com IA",
+    aiChatSubtitle: "Faça perguntas sobre este produto",
+    openAIKeyPlaceholder: "Digite sua chave OpenAI (opcional)",
+    chatPlaceholder: "Pergunte sobre especificações, opiniões, comparações...",
+    send: "Enviar",
+    chatError: "Houve um erro ao consultar o assistente.",
+    freeShippingBadge: "Frete grátis",
+  },
+  en: {
+    loading: "Loading...",
+    searchPlaceholder: "Search products, brands and more...",
+    searchButton: "Search",
+    searching: "Searching...",
+    noResults: "No results found",
+    sendTo: "Ship to:",
+    city: "Buenos Aires",
+    breadcrumb1: "Cell phones and telephones",
+    breadcrumb2: "Cell phone accessories",
+    protectedPurchase: "Protected purchase, get the product you expected or we'll refund your money",
+    backToList: "Back to listing",
+    breadcrumbCategory: "Cell Phones & Telephones",
+    newProduct: "New",
+    soldCount: "sold",
+    stock: "Available stock:",
+    units: "units",
+    quantity: "Quantity:",
+    color: "Color:",
+    blue: "Blue",
+    buyNow: "Buy now",
+    addToCart: "Add to cart",
+    freeShipping: "Free shipping",
+    arriving: "Arrives",
+    tomorrow: "tomorrow",
+    seeShippingCosts: "See delivery options",
+    soldBy: "Sold by",
+    reputation: "Reputation",
+    sales: "sales",
+    returns: "Free returns",
+    returnsDesc: "You have 30 days from receipt.",
+    warranty: "Warranty",
+    warrantyDesc: "Purchase Protection with Mercado Pago.",
+    securePayment: "Secure payment",
+    securePaymentDesc: "Get the product you expected or we'll refund your money.",
+    paymentMethods: "Payment methods",
+    creditCards: "Credit cards",
+    debitCards: "Debit cards",
+    cash: "Cash",
+    installmentsTitle: "Installments without a card",
+    installmentsDesc: "Buy in installments without a card with Mercado Crédito.",
+    knowMore: "Learn more",
+    description: "Description",
+    specifications: "Technical specifications",
+    specRAM: "RAM Memory",
+    specStorage: "Internal storage",
+    specMainCamera: "Main camera",
+    specFrontCamera: "Front camera",
+    specBattery: "Battery",
+    specProcessor: "Processor",
+    specScreen: "Screen",
+    specProtection: "Protection",
+    reviewsTitle: "Product reviews",
+    overallRating: "Overall rating",
+    reviews: "reviews",
+    stars: "stars",
+    reviewBreakdown: "Rating breakdown",
+    characteristics: "Key features",
+    verifiedPurchase: "Verified purchase",
+    alsoViewed: "Others also viewed these products",
+    relatedProducts: "Related products",
+    aiChatTitle: "AI Shopping Assistant",
+    aiChatSubtitle: "Ask questions about this product",
+    openAIKeyPlaceholder: "Enter your OpenAI key (optional)",
+    chatPlaceholder: "Ask about specifications, reviews, comparisons...",
+    send: "Send",
+    chatError: "There was an error consulting the assistant.",
+    freeShippingBadge: "Free shipping",
+  },
+};
+
 interface PaymentMethod {
   type: string;
   description: string;
@@ -176,6 +388,7 @@ const SPECIFICATIONS = [
 ];
 
 export default function Home() {
+  const [language, setLanguage] = useState<Language>('es');
   const [item, setItem] = useState<ItemDetail | null>(null);
   const [selectedImage, setSelectedImage] = useState<string>("");
   const [alsoBoughtIndex, setAlsoBoughtIndex] = useState<number>(0);
@@ -195,6 +408,9 @@ export default function Home() {
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Get current translations
+  const t = translations[language];
+
   const displayedImage = useMemo(() => {
     if (selectedImage) {
       return selectedImage;
@@ -203,7 +419,7 @@ export default function Home() {
   }, [selectedImage, item]);
 
   useEffect(() => {
-    fetch(`${API_URL}/item`)
+    fetch(`${API_URL}/item?lang=${language}`)
       .then((res) => res.json())
       .then((data: ItemDetail) => {
         setItem(data);
@@ -215,7 +431,7 @@ export default function Home() {
         console.error("Failed to load item detail", error);
       });
 
-    fetch(`${API_URL}/reviews`)
+    fetch(`${API_URL}/reviews?lang=${language}`)
       .then((res) => res.json())
       .then((data) => {
         setReviews(data);
@@ -223,7 +439,7 @@ export default function Home() {
       .catch((error) => {
         console.error("Failed to load reviews", error);
       });
-  }, []);
+  }, [language]);
 
   const cleanResponseText = (text: string): string => {
     return text
@@ -305,13 +521,13 @@ export default function Home() {
       const res = await fetch(`${API_URL}/agent/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, openai_key: openaiKey || undefined })
+        body: JSON.stringify({ question, openai_key: openaiKey || undefined, language })
       });
       const data = await res.json();
       const cleanedAnswer = cleanResponseText(data.answer);
       setChatMessages((m) => [...m, { role: 'bot', text: cleanedAnswer, timestamp: new Date() }]);
     } catch {
-      setChatMessages((m) => [...m, { role: 'bot', text: 'Hubo un error consultando el asistente.', timestamp: new Date() }]);
+      setChatMessages((m) => [...m, { role: 'bot', text: t.chatError, timestamp: new Date() }]);
     } finally {
       setIsTyping(false);
     }
@@ -323,7 +539,7 @@ export default function Home() {
   }, [item]);
 
   if (!item) {
-    return <div>Loading...</div>;
+    return <div>{t.loading}</div>;
   }
 
   return (
@@ -342,19 +558,19 @@ export default function Home() {
           <div className={styles.searchBar}>
             <input 
               type="text" 
-              placeholder="Buscar productos, marcas y más..." 
+              placeholder={t.searchPlaceholder}
               value={searchQuery}
               onChange={(e) => handleSearchInput(e.target.value)}
               onFocus={() => searchResults.length > 0 && setShowSearchResults(true)}
               onBlur={() => setTimeout(() => setShowSearchResults(false), 200)}
             />
             <button type="button" onClick={() => performSearch(searchQuery)}>
-              Buscar
+              {t.searchButton}
             </button>
             {showSearchResults && (
               <div className={styles.searchDropdown}>
                 {isSearching ? (
-                  <div className={styles.searchLoading}>Buscando...</div>
+                  <div className={styles.searchLoading}>{t.searching}</div>
                 ) : searchResults.length > 0 ? (
                   searchResults.map((result, index) => (
                     <div 
@@ -368,20 +584,43 @@ export default function Home() {
                     </div>
                   ))
                 ) : searchQuery.trim() && (
-                  <div className={styles.searchNoResults}>No se encontraron resultados</div>
+                  <div className={styles.searchNoResults}>{t.noResults}</div>
                 )}
               </div>
             )}
           </div>
           <div className={styles.location}>
-            <span>Enviar a:</span>
-            <span>Capital Federal</span>
+            <span>{t.sendTo}</span>
+            <span>{t.city}</span>
+          </div>
+          <div className={styles.languageSelector}>
+            <button 
+              onClick={() => setLanguage('es')} 
+              className={language === 'es' ? styles.langActive : ''}
+              aria-label="Español"
+            >
+              ES
+            </button>
+            <button 
+              onClick={() => setLanguage('pt')} 
+              className={language === 'pt' ? styles.langActive : ''}
+              aria-label="Português"
+            >
+              PT
+            </button>
+            <button 
+              onClick={() => setLanguage('en')} 
+              className={language === 'en' ? styles.langActive : ''}
+              aria-label="English"
+            >
+              EN
+            </button>
           </div>
         </header>
         <div className={styles.secondaryHeader}>
           <div className={styles.secondaryHeaderContent}>
-            <span>Celulares y teléfonos &gt; Accesorios para celulares</span>
-            <span>Compra protegida, recibí el producto que esperabas o te devolvemos tu dinero</span>
+            <span>{t.breadcrumb1} &gt; {t.breadcrumb2}</span>
+            <span>{t.protectedPurchase}</span>
           </div>
         </div>
       </div>
@@ -389,9 +628,9 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.mainInner}>
           <nav className={styles.breadcrumbs}>
-            <span>Volver al listado</span>
+            <span>{t.backToList}</span>
             <span>&gt;</span>
-            <span>Celulares y Teléfonos</span>
+            <span>{t.breadcrumbCategory}</span>
             <span>&gt;</span>
             <span>Samsung</span>
           </nav>
@@ -435,7 +674,7 @@ export default function Home() {
                 />
               </div>
               <div className={styles.productInfo}>
-                <span className={styles.secondaryInfo}>Nuevo | {item.reviews_count.toLocaleString()} opiniones</span>
+                <span className={styles.secondaryInfo}>{t.newProduct} | {item.reviews_count.toLocaleString()} {t.reviews}</span>
                 <h1 className={styles.title}>{item.title}</h1>
                 <div className={styles.ratingRow}>
                   <span className={styles.stars}>★★★★★</span>
@@ -449,10 +688,10 @@ export default function Home() {
                 </span>
 
                 <div className={styles.colorSection}>
-                  <h3>Color: <span className={styles.colorName}>Celeste</span></h3>
+                  <h3>{t.color} <span className={styles.colorName}>{t.blue}</span></h3>
                   <div className={styles.colorOptions}>
                     <div className={styles.colorOption}>
-                      <img src="/hero_2.webp" alt="Celeste" className={styles.colorImage} />
+                      <img src="/hero_2.webp" alt={t.blue} className={styles.colorImage} />
                     </div>
                   </div>
                 </div>
@@ -491,10 +730,10 @@ export default function Home() {
                 </div>
                 <div className={styles.buttons}>
                   <button className={styles.primaryButton} type="button">
-                    Comprar ahora
+                    {t.buyNow}
                   </button>
                   <button className={styles.secondaryButton} type="button">
-                    Agregar al carrito
+                    {t.addToCart}
                   </button>
                 </div>
 
@@ -519,42 +758,42 @@ export default function Home() {
               </div>
 
               <div className={styles.paymentMethodsBoxSeparate}>
-                <h3 className={styles.sectionTitle}>Medios de pago</h3>
+                <h3 className={styles.sectionTitle}>{t.paymentMethods}</h3>
                 <div className={styles.paymentSection}>
                   <div className={styles.paymentCategory}>
-                    <h4>Cuotas sin Tarjeta</h4>
+                    <h4>{t.installmentsTitle}</h4>
                     <div className={styles.paymentLogos}>
                       <img src="/cuotas_sin_tarjeta_logo.png" alt="Mercado Pago" className={styles.paymentLogo} />
                     </div>
                   </div>
                   
                   <div className={styles.paymentCategory}>
-                    <h4>Tarjetas de crédito</h4>
+                    <h4>{t.creditCards}</h4>
                     <div className={styles.paymentLogos}>
-                      <img src="/tarjetas_debido_logos.png" alt="Tarjetas de crédito" className={styles.paymentLogo} />
+                      <img src="/tarjetas_debido_logos.png" alt={t.creditCards} className={styles.paymentLogo} />
                     </div>
                   </div>
 
                   <div className={styles.paymentCategory}>
-                    <h4>Tarjetas de débito</h4>
+                    <h4>{t.debitCards}</h4>
                     <div className={styles.paymentLogos}>
-                      <img src="/tarjetas_debido_logos.png" alt="Tarjetas de débito" className={styles.paymentLogo} />
+                      <img src="/tarjetas_debido_logos.png" alt={t.debitCards} className={styles.paymentLogo} />
                     </div>
                   </div>
 
                   <div className={styles.paymentCategory}>
-                    <h4>Efectivo</h4>
+                    <h4>{t.cash}</h4>
                     <div className={styles.paymentLogos}>
-                      <img src="/efectivo_logos.png" alt="Efectivo" className={styles.paymentLogo} />
+                      <img src="/efectivo_logos.png" alt={t.cash} className={styles.paymentLogo} />
                     </div>
                   </div>
 
-                  <a href="#" className={styles.morePaymentMethods}>Conocé otros medios de pago</a>
+                  <a href="#" className={styles.morePaymentMethods}>{t.knowMore}</a>
                 </div>
               </div>
 
               <div className={styles.relatedProductsBoxSeparate}>
-                <h3 className={styles.sectionTitle}>Productos relacionados</h3>
+                <h3 className={styles.sectionTitle}>{t.relatedProducts}</h3>
                 <div className={styles.relatedProductsList}>
                   {RELATED_PRODUCTS.map((product, index) => (
                     <div className={styles.relatedProductItem} key={product.title}>
@@ -565,7 +804,7 @@ export default function Home() {
                           {currencyFormatter.format(product.price)}
                         </span>
                         {product.badge && (
-                          <span className={styles.relatedProductBadge}>{product.badge}</span>
+                          <span className={styles.relatedProductBadge}>{t.freeShippingBadge}</span>
                         )}
                       </div>
                     </div>
@@ -575,7 +814,7 @@ export default function Home() {
             <section className={styles.upperLeftSections}>
               <div className={styles.leftSectionItem}>
                 <div className={styles.carouselHeader}>
-                  <h2 className={styles.sectionTitle}>Quienes vieron este producto también compraron</h2>
+                  <h2 className={styles.sectionTitle}>{t.alsoViewed}</h2>
                 </div>
                 <div className={styles.carouselContainer}>
                   <button 
@@ -652,7 +891,7 @@ export default function Home() {
 
             <section className={styles.lowerLeftSections}>
               <div className={styles.leftSectionItem} id="specifications">
-              <h2 className={styles.sectionTitle}>Características del producto</h2>
+              <h2 className={styles.sectionTitle}>{t.specifications}</h2>
               
               <div className={styles.screenSizeGraphic}>
                 <div className={styles.screenSizeIcon}>
@@ -691,7 +930,7 @@ export default function Home() {
               </div>
 
               <div className={styles.leftSectionItem}>
-              <h2 className={styles.sectionTitle}>Descripción</h2>
+              <h2 className={styles.sectionTitle}>{t.description}</h2>
               <p>{item.description}</p>
               <p className={styles.highlight}>Capacidad y eficiencia</p>
               <p>
@@ -712,7 +951,7 @@ export default function Home() {
 
               {reviews && (
                 <div className={styles.leftSectionItem}>
-                  <h2 className={styles.sectionTitle}>Opiniones del producto</h2>
+                  <h2 className={styles.sectionTitle}>{t.reviewsTitle}</h2>
                   
                   <div className={styles.reviewsContainer}>
                     <div className={styles.reviewsLeft}>
@@ -723,12 +962,12 @@ export default function Home() {
                             <span key={i} className={styles.star}>★</span>
                           ))}
                         </div>
-                        <div className={styles.totalReviews}>{reviews.total_reviews} calificaciones</div>
+                        <div className={styles.totalReviews}>{reviews.total_reviews} {t.reviews}</div>
                       </div>
 
 
                       <div className={styles.characteristicRatings}>
-                        <h3 className={styles.characteristicTitle}>Calificación de características</h3>
+                        <h3 className={styles.characteristicTitle}>{t.characteristics}</h3>
                         {reviews.characteristic_ratings.map((char: CharacteristicRating, index: number) => (
                           <div key={index} className={styles.characteristicItem}>
                             <span className={styles.characteristicName}>{char.name}</span>
@@ -813,18 +1052,18 @@ export default function Home() {
     </div>
 
     {/* Floating chat widget */}
-    <button className={styles.chatFab} onClick={() => setChatOpen((v) => !v)} aria-label="Abrir asistente">
+    <button className={styles.chatFab} onClick={() => setChatOpen((v) => !v)} aria-label={t.aiChatTitle}>
       {chatOpen ? '×' : '?'}
     </button>
     {chatOpen && (
       <div className={styles.chatPanel}>
-        <div className={styles.chatHeader}>Asistente de producto</div>
+        <div className={styles.chatHeader}>{t.aiChatTitle}</div>
         <div className={styles.apiKeyRow}>
           <input 
             type="password"
             value={openaiKey} 
             onChange={(e) => setOpenaiKey(e.target.value)} 
-            placeholder="OpenAI API Key (opcional)" 
+            placeholder={t.openAIKeyPlaceholder}
             className={styles.apiKeyInput}
           />
         </div>
@@ -860,12 +1099,12 @@ export default function Home() {
           <input 
             value={chatInput} 
             onChange={(e) => setChatInput(e.target.value)} 
-            placeholder="Escribe tu pregunta..." 
+            placeholder={t.chatPlaceholder}
             onKeyDown={(e) => { if (e.key === 'Enter' && !isTyping) sendChat(); }} 
             disabled={isTyping}
           />
           <button onClick={sendChat} disabled={isTyping || !chatInput.trim()}>
-            {isTyping ? 'Enviando...' : 'Enviar'}
+            {isTyping ? t.searching : t.send}
           </button>
         </div>
     </div>
