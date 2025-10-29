@@ -4,18 +4,19 @@ from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
 
-# RAG system enabled with proper error handling
+# RAG system - use simple version without LangChain
 try:
-    from rag import ingest_corpus, answer_question
+    from rag_simple import ingest_corpus, answer_question
     RAG_AVAILABLE = True
+    print("✅ RAG system loaded successfully (simple version)")
 except ImportError as e:
-    print(f"Warning: RAG import failed: {e}")
+    print(f"❌ RAG import failed: {e}")
     RAG_AVAILABLE = False
     def ingest_corpus(*args, **kwargs):
         pass
     def answer_question(query, **kwargs):
         return {
-            "answer": "AI chat requires additional dependencies. Please check the deployment logs.",
+            "answer": "AI chat is not available. Import failed.",
             "sources": []
         }
 
