@@ -318,6 +318,9 @@ async def search_endpoint(payload: SearchRequest):
 @app.post("/py-api/agent/chat")
 @app.post("/agent/chat")  # Keep both for compatibility
 def chat_endpoint(payload: ChatRequest):
+    # Ensure documents are ingested (lazy loading for serverless)
+    _ensure_docs_ingested()
+    
     # Temporarily set the API key if provided
     import os
     original_key = os.environ.get("OPENAI_API_KEY")
